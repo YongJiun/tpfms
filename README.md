@@ -1,14 +1,7 @@
 author : Yong-Jiun, Tsao <d781115621@gmail.com>
-license: MIT
+license: Top Speed Sky Team <TAIWAN R.O.C.>
 
-# Jiun's react, webpack project format
-
-include
-------------
-webpack@2.3.3
-react, react-dom, react-router
-loader: [js, jsx, css, less, style, autoprefixer]
-
+# TPFMS flight control system
 
 # Setting up the Project
 clone
