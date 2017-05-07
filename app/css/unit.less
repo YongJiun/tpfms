@@ -1,0 +1,225 @@
+@import 'variable.less';
+
+.left {float: left; }
+.right {float: right; }
+
+.text-left {text-align: left; }
+.text-right {text-align: right; }
+
+.child-left, .child-right {
+	overflow: hidden;
+}
+
+.child-left > div {float: left; }
+.child-right > div {float: right; }
+
+.display-no {
+	display: none;
+}
+
+.disappear {visibility: hidden; }
+
+.bg-main-airplain {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-image: url(/assets/common/bg/bg.png);
+}
+
+a.btn {
+	display: block;
+}
+
+.btn {
+	cursor: pointer;	
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	z-index: 10;
+}
+
+.btn-line {
+	margin: 30px 0;
+	min-height: 92px;
+	border-radius: 100px;
+	background-repeat: no-repeat;
+	background-position: center center;
+
+	&.red {border: 2px solid @main-red; }
+}
+
+.btn-back {
+	position: absolute;
+	padding: 10px;
+	width: 120px; height: 120px;
+	z-index: 10;
+}
+
+.btn-circle {
+	position: absolute;
+	padding: 10px;
+	width: 120px; height: 120px;
+	opacity: 1;
+	z-index: 10;	
+	transition: 0.4s;
+}
+
+.btn-circle.fade-out {
+	opacity: 0;
+}
+
+.btn-circle-bg {
+	width: 100px; height: 100px;
+	border-radius: 50px;
+	box-shadow: -4px 0px 16px rgba(0,0,0,0.5);
+
+	&.red {background-color: @circle-red; }
+	&.black {background-color: black; }
+	&.gray-0 {background-color: #191919; }
+	&.gray-1 {background-color: @gray-1; }
+	&.gray-2 {background-color: #393939; }
+
+}
+
+.btn-camera {
+	display: block;
+	width: 82px; height: 82px;
+	border-radius: 41px;
+	border: 1px solid white;
+	background-color: @gray-6;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.btn-arrow {
+	position: absolute;
+	left: 50%; top: 50%;
+	margin-left: -18px; margin-top: -18px;
+	width: 36px; height: 36px;
+}
+
+.btn-icon {
+	position: absolute;
+	left: 50%; top: 50%;
+	margin-left: -20px; margin-top: -20px;
+	width: 40px; height: 40px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 100% auto;
+
+	&.icon-relationship-w {
+		margin-left: -25px; margin-top: -23px;
+		width: 50px; height: 50px;
+	}
+
+	&.icon-flight-record-w {
+		margin-left: -23px; margin-top: -24px;
+		width: 46px; height: 48px;
+		background-size: auto 100%;
+	}
+}
+
+.btn-bt-single .btn-bt {
+	margin-left: auto;
+	margin-right: auto;
+	width: 290px; 
+}
+
+.btn-bt-twin .btn-bt {
+	width: 240px; 
+}
+
+.btn-bt {
+	@btn-bt-h: 80px;
+	@margin-v: 40px;
+	margin-top: @margin-v;
+	margin-bottom: @margin-v;
+	
+	display: block;
+	height: @btn-bt-h;
+	line-height: @btn-bt-h;
+	border-radius: @btn-bt-h * 0.5;
+
+	letter-spacing: 1px;
+	text-align: center;
+	vertical-align: middle;
+	
+
+	>div {
+		padding: 23px 0 27px;
+		font-size: 30px;
+		font-weight: normal;
+		line-height: 30px;
+
+		&:before, &:after {
+			content: '';
+			display: inline-block;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
+	}
+
+	&.next > div:after {
+		margin-left: 10px;
+		width: 20px;
+		height: 21px;
+	}
+
+	&.save > div:before, &.complete > div:before {
+		margin-right: 15px;
+		width: 20px;
+		height: 21px;	
+	}
+
+	&.green {
+		background-color: @btn-bt-green-l;
+		border: 1px solid @btn-bt-green-d;
+		color: @btn-bt-green-d;
+	}
+
+	&.red {
+		background-color: @btn-bt-red-l;
+		border: 1px solid @btn-bt-red-d;
+		color: @btn-bt-red-d;
+	}
+}
+
+.icon-arrow-right {
+	background-size: 100% 100%;
+	background-image: url(/assets/common/icon/arrow-right.png);
+}
+
+.icon-arrow-left {
+	background-size: 100% 100%;
+	background-image: url(/assets/common/icon/arrow-left.png);
+}
+
+.iscroll-scroller {
+	position: absolute;
+	overflow: hidden;
+}
+
+.full-width {width: 100%; }
+.full-height {height: 100%; }
+
+.text-center {
+	text-align: center;
+}
+
+.gap-v-sm {
+	margin: 30px 0;
+}
+
+.common-checkbox {
+	display: none;	
+}
+
+.common-checkbox + label span {
+	display: inline-block;
+	margin: auto;
+	width: 50px; height: 50px;
+	vertical-align: middle;
+	background-position: center top;
+	background-image: url(/assets/common/icon/checkbox.png);
+}
+
+.common-checkbox:checked + label span {
+	background-position: center bottom;	
+}

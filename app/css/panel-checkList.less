@@ -1,0 +1,271 @@
+.cl-block {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+}
+
+.cl-block-main {
+	border-bottom: 7px solid @dark-red;
+	box-shadow: 0px 4px 15px rgba(0,0,0,0.4);
+	z-index: 5;
+
+	&:before {
+		content: '';
+		display: block;
+		position: absolute;
+		left: 0; top: 50%;
+		margin-top: -75px;
+		width: 7px; height: 150px;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+		background-color: @circle-red;
+	}
+}
+
+.cl-form-left {
+	padding: 15px 15px 30px 20px;
+	width: 72%; 
+
+	> div {
+		float: left;
+		clear: left;
+	}
+}
+
+.cl-date {
+	display: inline-block;
+	padding: 5px 20px;
+	margin: 10px 0 10px -2px;
+	height: 32px;
+	line-height: 22px;
+	font-size: 17px;
+	font-weight: 500;
+	text-align: center;
+	background-color: @gray-2;
+	color: white;
+	border-radius: 15px;
+}
+
+.cl-location {
+	font-size: 30px;
+	font-weight: 700;
+	color: @gray-2;
+}
+
+.cl-text {
+	width: 380px;
+	margin: 13px 0 0;
+	font-size: 22px;
+	font-weight: 500;
+	letter-spacing: -1px;
+	color: @gray-2;
+	overflow-x: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.cl-form-right {
+	text-align: right;
+	padding: 50px 60px 0 0;
+	width: 28%;
+	
+	> div {
+		float: right;
+		color: @circle-red
+	}
+
+	> .cl-num {
+		margin: 32px 0 -2px;
+		font-size: 50px;
+		font-weight: 500;
+	}
+
+	> .cl-text {
+		font-size: 17px;
+		// letter-spacing: 1px;
+	}
+}
+
+.cl-block-scroll {
+	height: 137vw;
+	overflow: hidden;
+}
+
+.scroll-cl {
+	width: 100%;
+}
+
+ul.cl-list {
+
+}
+
+ul.cl-list li.cl-title {
+	padding: 0 25px;
+	height: 60px;
+	line-height: 60px;
+	background-color: #ccc;
+	border-bottom: 1px solid @gray-2;
+	color: @gray;
+}
+
+.cl-item {
+	overflow: hidden;
+
+	>div {
+		float: left;
+		padding-top: 30px;
+		padding-bottom: 30px;
+		// line-height: 55px;
+		min-height: 115px;
+	}
+}
+
+.cl-checkbox {
+	display: none;	
+}
+
+.cl-checkbox + label span {
+	display: inline-block;
+	margin: auto;
+	width: 50px; height: 50px;
+	vertical-align: middle;
+	background-position: center top;
+	background-image: url(/assets/common/icon/checkbox.png);
+}
+
+.cl-checkbox:checked + label span {
+	background-position: center bottom;	
+}
+
+.cl-item-check {
+	text-align: center;
+	width: 15%;
+}
+
+.cl-item-by {
+	width: 20%;
+	line-height: 55px;
+	color: @task-edit-green;
+}
+
+div.cl-item-content {
+	padding-top: 20px;
+	width: 65%;
+	font-size: 30px;
+	line-height: 36px;
+	color: @gray-2;
+}
+
+.cl-item-time {
+	margin: 4px 0 5px;
+	font-size: 18px;
+	line-height: 18px;
+
+}
+
+.cl-bottom-line {
+	float: right;
+	margin: 0;
+	width: 85%; height: 1px;
+	background-color: @gray-3;
+	opacity: 0.4;
+}
+
+.cl-leg {
+	position: relative;
+	padding: 25px;
+	background-color: @gray-2;
+	overflow: hidden;
+}
+
+.cl-leg-badge {
+	position: absolute;
+	left: 25px; top: 29px;
+	padding: 8px 10px;
+	background-color: white;
+	color: @gray;
+	font-size: 23px;
+	box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+}
+
+.cl-leg-form {
+	float: right;
+	width: 80%;
+	min-height: 200px;
+
+	>div {
+		float: left;
+		color: white;
+	}
+}
+
+.cl-leg-form-l {
+	width: 42%;
+
+	>div {
+		clear: left;
+		float: left;
+	}
+
+	&.takeoff {
+		padding-right: 15px;
+	}
+
+	&.landing {
+		padding-left: 5px;
+	}
+}
+
+.cl-leg-form-s {
+	padding-right: 15px;
+	margin: 0 10px 0 -12px;
+	width: 16%;
+	min-height: 100px;
+	// background-color: rgba(0,0,0,0.2);
+}
+
+.cl-form-airplain-wrap {
+	margin: 8px 0;
+}
+
+.cl-form-airplain {
+	display: block;
+	margin-right: 8px;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	background-position: center center;
+}
+
+.cl-form-airplain.sm {width: 23px; height: 23px; }
+.cl-form-airplain.md {width: 28px; height: 28px; }
+
+.cl-form-airplain.leg {
+	margin: 69px auto 8px;
+}
+
+.cl-form-airport {
+	margin: 8px 0 8px -2px;
+	font-size: 28px;
+	font-weight: 500;
+	line-height: 32px;
+	letter-spacing: -1px;
+}
+
+.cl-form-text {
+	font-size: 20px;
+	font-weight: 500;
+}
+
+.cl-form-text.leg {
+	font-size: 17px;
+	font-weight: 900;
+	text-align: center;
+}
+
+.cl-leg-landing {
+	padding-left: 5px;
+}
+
+.cl-form-time {
+	opacity: 0.5;
+}

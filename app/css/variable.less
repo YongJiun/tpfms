@@ -1,0 +1,49 @@
+@header-height: 100px;
+@footer-height: 70px;
+
+@panelW: 90vw;
+@panelH: 95vh;
+
+@main-red: #f50f39;
+@popup-cancel-red: #e74759;
+@circle-red: #c00023;
+@dark-red: #661d2a;
+
+@header-dark-gray: #1d1d1d;
+
+@gray: gray;
+@gray-0: #2b2b2b;
+@gray-1: #262626;
+@gray-2: #515151;
+@gray-3: #8d8c8c;
+@gray-4: #dcdcdc;
+@gray-5: #d1cece;
+@gray-6: #767676;
+@gray-7: #666666;
+@gray-8: #9c9c9c;
+
+
+@task-bg-gray: #e2e2e2;
+@task-complete-green: #19d873;
+@task-edit-green: #30914a;
+@task-wait-orange: #d87500;
+
+@btn-bt-green-d: #25a968;
+@btn-bt-green-l: #cad9d0;
+
+@btn-bt-red-l: #e3d1d0;
+@btn-bt-red-d: #e83e2d;
+
+@InOutExpo: cubic-bezier(.85,0,.23,1);
+
+.appearance (@value: none) {
+    -webkit-appearance:     @value;
+    -moz-appearance:        @value;
+    -ms-appearance:         @value;
+    -o-appearance:          @value;
+    appearance:             @value;
+}
+
+.transition-InOutExpo () {
+	transition: 0.5s cubic-bezier(.85,0,.23,1);
+}

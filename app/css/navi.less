@@ -1,0 +1,95 @@
+@import 'variable.less';
+
+.navi-pannel {
+	position: fixed;
+	right: -100%; top: 0;
+	width: 100%; height: 100vh;
+	transition: 0.7s @InOutExpo;
+}
+
+.navi-pannel.navi-pannel-close {
+	right: -100%;	
+	.navi-bg {background-position-x: -220px; } 
+}
+
+.navi-pannel.navi-pannel-open {
+	right: 0%;
+	.navi-bg {background-position-x: 0px; }
+}
+
+.navi-content-wrap {
+	position: relative;
+	width: 100%;
+}
+
+.navi-bg {
+	height: 48vh;
+	background-position: top;
+	transition: 0.7s @InOutExpo;
+}
+
+.navi-option-wrap {
+	height: 52vh;
+	background-color: @gray-0;
+	border-top: 3px solid @main-red;
+	z-index: 1;
+}
+
+.navi-option-wrap ul {
+	width: 100%; height: 370px;
+	margin-top: 90px;
+	padding: 0 30px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url(/assets/navi/nav_frame.png);
+}
+
+.navi-option-wrap ul li {
+	float: left;
+	margin: 20px 13px;
+	width: 165px; height: 140px;
+	cursor: pointer;
+
+	background-position: center center;
+	background-repeat: no-repeat;
+
+	&.passenger {background-image: url(/assets/navi/passenger.png); }
+	&.airport {background-image: url(/assets/navi/airport.png); }
+	&.flight-record {background-image: url(/assets/navi/fr.png); }
+	&.crew-member {background-image: url(/assets/navi/cm.png); }
+	&.aircraft {background-image: url(/assets/navi/aircraft.png); }
+	&.personal-information {background-image: url(/assets/navi/personal.png); }
+}
+
+.navi-serch {
+	position: absolute;
+	margin: auto;
+	left: 0; right: 0; top: -41px;
+	width: 510px; height: 80px;
+	border-radius: 40px;
+	background-color: white;
+}
+
+.navi-serch input {
+	display: inline;
+	padding: 0 30px 0 110px;
+	width: 510px; height: 80px;
+	line-height: 80px;
+	font-size: 25px;
+	font-weight: 300;
+	color: @gray;
+	background-repeat: no-repeat;
+	background-position: 40px center;
+	background-image: url(/assets/common/icon/magnifier.png);
+}
+
+.navi-close {
+	position: absolute;
+	right: 30px; top: 50px;
+	width: 80px; height: 80px;
+}
+
+.navi-close-icon {
+	margin: 20px auto;
+	width: 40px; height: 40px;
+}

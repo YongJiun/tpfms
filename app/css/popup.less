@@ -1,0 +1,128 @@
+@import 'variable.less';
+
+.popup-wrap {
+	position: fixed;
+	left: 0; top: 0;
+	width: 100%; height: 100%;
+	z-index: 10000;
+}
+
+.popup-bg {
+	position: fixed;
+	left: 0; top: 0;
+	width: 100%; height: 100%;
+	transition: 0.4s;
+}
+
+.popup-panel {
+	position: relative;
+	margin-top: 29vh;
+	margin-left: auto; margin-right: auto;
+	width: 600px; min-height: 300px;
+	background-color: rgba(255,255,255,0.95);
+	box-shadow: 0 0 50px rgba(0,0,0,1);
+	border-radius: 20px;
+	overflow: hidden;
+	/*opacity: 1;*/
+	z-index: 2;
+	transition: 0.5s;
+}
+
+.popup-title {
+	padding: 25px 0;
+	text-align: center;
+	font-size: 30px;
+	font-weight: normal;
+	line-height: 36px;
+	letter-spacing: 1px;
+	color: @gray-2;
+}
+
+.popup-form {
+	border-top: 1px solid @gray-3;
+}
+
+.popup-form-block {
+	font-size: 30px;
+	border-bottom: 1px solid @gray-3;
+}
+
+.popup-form-title {
+	padding: 30px 0;
+	width: 27%;
+	line-height: 42px;
+	text-align: center;
+	border-right: 1px solid @gray-3;
+	color: @gray-8;
+}
+
+.popup-form-content {
+	padding: 30px 35px 30px 40px;
+	width: 73%;
+	text-align: left;
+	color: @gray-2;
+}
+
+.popup-form-content input {
+	width: 100%;
+	height: 42px;
+	font-size: 30px;
+	line-height: 42px;
+}
+
+.popup-btn-wrap.twin > div{
+	width: 50%;
+}
+
+.popup-btn {
+	padding: 35px 0;
+	font-size: 30px;
+	text-align: center;
+
+	>div {
+
+		&:before {
+			content: '';
+			margin-right: 8px;
+			display: inline-block;
+			width: 25px; height: 25px;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
+	}
+
+	&.left {
+		border-right: 1px solid @gray-3;
+	}
+
+	&.cancel {color: @popup-cancel-red; }
+	&.confirm {color: @task-edit-green; }
+}
+
+
+/* ---- fade-out */
+
+.popup-wrap.fade-in {
+
+	.popup-panel {
+		transform: translate(0, -50px);
+		opacity: 1;
+	}
+
+	.popup-bg {
+		background-color: rgba(0,0,0,0.8);
+	}
+}
+
+.popup-wrap.fade-out {
+
+	.popup-panel {
+		transform: translate(0, 0px);
+		opacity: 0;
+		transition: 0.5s;
+	}
+
+	.popup-bg {
+		background-color: rgba(0,0,0,0.01);
+	}
+}

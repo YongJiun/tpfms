@@ -1,0 +1,71 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanstc.css);
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans);
+
+@import 'variable.less';
+@import 'reset.less';
+@import 'unit.less';
+@import 'base64.less';
+
+@import 'account.less';
+@import 'header.less';
+@import 'footer.less';
+@import 'navi.less';
+@import 'task.less';
+@import 'popup.less';
+
+@import 'flight-record.less';
+
+
+@import 'panel.less';
+@import 'panel-checkList.less';
+@import 'panel-passenger.less';
+
+html {
+	font-family: 'Noto Sans TC', 'Noto Sans', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-smooth: always;
+}
+
+html, body, #app, #buffer-wrap {
+	margin: 0;
+	padding: 0;
+	width: 100%; height: 100%;
+	background-color: @gray-0;
+}
+
+a {
+	background-color: transparent;
+}
+
+.active {
+	background-color: #ABC;
+}
+
+#content-wrap {
+	position: relative;
+	min-height: 100%;
+	padding-top: 275px;
+	margin-bottom: -80px;
+	padding-bottom: -80px;
+}
+
+.loading-wrap {
+	position: fixed;
+	left: 0; top: 0;
+	width: 100%; height: 100%;
+	background-color: black;
+	background-image: url(/assets/common/logo/top-speed-w.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	transition: 0.8s;
+	z-index: 100000;
+
+	&.fade-out {
+		opacity: 0;
+	}
+
+	&.fade-In {
+		opacity: 1;
+	}
+}

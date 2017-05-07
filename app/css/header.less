@@ -1,0 +1,154 @@
+@import 'variable.less';
+
+.header-height {
+	height: @header-height;
+}
+
+header {
+	position: fixed; left: 0; top: 0;
+	padding-top: 10px;
+	width: 100%; 
+	background-color: @header-dark-gray;
+	z-index: 1000;
+	color: white;
+	box-shadow: 0px 10px 10px rgba(0,0,0,0.35);
+}
+
+.header-toolbar:last-child {
+	border-bottom: 3px solid @main-red;
+}
+
+.header-toolbar {
+	width: 100%;
+	padding: 40px 0 20px;
+}
+
+.header-toolbar > div {
+	display: inline-block;
+}
+
+.header-icon {
+	width: 120px; height: 70px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.header-tool-checkList {
+	position: relative;
+	background-image: url(/assets/header/icon-task.png);
+}
+
+.checkList-number {
+	position: absolute;
+	right: 15px; top: -5px;
+	width: 40px; height: 40px;
+	border-radius: 20px;
+	color: white;
+	font-weight: 900;
+	font-size: 24px;
+	line-height: 40px;
+	text-align: center;
+	background-color: @main-red;
+}
+
+.header-tool-navi {
+	background-image: url(/assets/header/icon-nav.png);
+}
+
+.header-tool-switch {
+	width: 400px; height: 70px;
+	text-align: center;
+}
+
+.switch-component {
+	border-radius: 55px;
+	border: 2px solid rgba(255,255,255,0.8);
+}
+
+.switch-frame {
+	position: relative;
+	margin: auto;
+	width: 334px; height: 70px;
+	background-color: #373737;
+}
+
+.switch-pannel.all {
+	left: -1px;
+	transition: 0.3s cubic-bezier(.71,.07,.37,.93);
+}
+
+.switch-pannel.published {
+	left: 141px;
+	transition: 0.3s cubic-bezier(.71,.07,.37,.93);
+}
+
+.switch-pannel {
+	position: absolute;
+	left: -1px; top: -2px;
+	width: 190px; height: 70px;
+	background-color: @header-dark-gray;
+
+	&:after {
+		position: absolute;
+		right: 40px; top: 50%; margin-top: -8px;
+		display: block;
+		content: '';
+		width: 16px; height: 16px;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAMCAYAAABr5z2BAAAApklEQVQokZ3SoWpCcRjG4ffoRJYMdouYDQPTLsi24AUsCbLk7awNBuvCkpchujAnz5JwkP8Rj19+f0/6KsyTDHLf/T4kOSZZ3Qm8BhXetb8NekEwwq5FfMQTcgaCeQtgee7qQIWPG+Jv9EtAMMb+SvyHWb25BIKXK8Db5b4EdPBZiLd4vAUIJvipxSc8l7ZNQLCoAeumXYWmL+sm+UoyTDJNciiN/gH4zQQ+bl1lIwAAAABJRU5ErkJggg==);
+	}
+}
+
+.switch-text {
+	float: left;
+	display: inline-block;
+	width: 50%; 
+	line-height: 68px;
+	color: rgba(255,255,255,0.3);
+}
+
+.filter-selector {
+	display: inline-block;
+	border: none;
+	background-color: transparent;
+	line-height: 65px;
+	font-size: 24px;
+	font-weight: 500;
+	color: white;
+	.appearance(none);
+}
+
+.scroll-month ul {
+	list-style: none;
+	padding: 0px 20px;
+	width: 971px;
+	overflow: hidden;
+}
+
+.scroll-month ul li {
+	float: left;
+	margin: 0 20px;
+	width: 37px; height: 50px;
+	width: 100% auto;
+	background-position: center top;
+	background-repeat: no-repeat;
+
+	&.month-1 {background-image: url(/assets/header/month/01.png); }
+	&.month-2 {background-image: url(/assets/header/month/02.png); }
+	&.month-3 {background-image: url(/assets/header/month/03.png); }
+	&.month-4 {background-image: url(/assets/header/month/04.png); }
+	&.month-5 {background-image: url(/assets/header/month/05.png); }
+	&.month-6 {background-image: url(/assets/header/month/06.png); }
+	&.month-7 {background-image: url(/assets/header/month/07.png); }
+	&.month-8 {background-image: url(/assets/header/month/08.png); }
+	&.month-9 {background-image: url(/assets/header/month/09.png); }
+	&.month-10 {background-image: url(/assets/header/month/10.png); }
+	&.month-11 {background-image: url(/assets/header/month/11.png); }
+	&.month-12 {background-image: url(/assets/header/month/12.png); }
+}
+
+.header-tool-scroller {
+	width: 100%; height: 55px;
+	overflow: hidden;
+}
