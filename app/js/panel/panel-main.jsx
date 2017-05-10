@@ -2,11 +2,15 @@ import React from 'react'
 import BtnCircle from '../components/btn-circle-red'
 import CheckList from './panel-checkList'
 import Passenger from './passenger/passenger-main'
+import FlightTaskDetail from './flight-task-detail/ftd-main'
 
 const btn_back_pos = {
 	right: '-60px',
 	top: '12px',
 };
+
+
+var ftd, psg, cl;
 
 export default React.createClass({
 
@@ -40,14 +44,26 @@ export default React.createClass({
 	},
 
 	getInitialState() {
+
+		cl  = <CheckList panelSwitch={this.panelSwitch} taskState="main"></CheckList>;
+		psg = <Passenger panelSwitch={this.panelSwitch}></Passenger>;
+		ftd = <FlightTaskDetail panelChange={this.changeContent} panelSwitch={this.panelSwitch}></FlightTaskDetail>;
 		
 		return {
+			panelState: 'open',
+			panelDisappear: '',
+			panelDeep: '',
+			section: 'flight-task-detail',
+			content: ftd,
+			contentFade: '',
+
 			/*panelState: 'open',
 			panelDisappear: '',
 			content: <Passenger panelSwitch={this.panelSwitch}></Passenger>,*/
-			panelState: 'close',
+			
+			/*panelState: 'close',
 			panelDisappear: 'disappear',
-			content: <CheckList taskState="main"></CheckList>,
+			content: <CheckList taskState="main"></CheckList>,*/
 		}	
 	},
 
@@ -59,7 +75,32 @@ export default React.createClass({
 		this.props.onRef(undefined);
 	},
 
+	toDeep: function() {
+		if(this.state.panelDeep == 'deep') this.setState({panelDeep: '' });
+		else this.setState({panelDeep: 'deep' });
+		
+	},
+
 	changeContent: function(tar) {
+
+		if(this.state.panelState == 'open') {
+			
+			this.setState({contentFade: 'fade-out' });	
+
+			setTimeout(() => {
+				this.changeControler(tar)
+				this.setState({contentFade: '' });
+			}, 600);
+		}
+		else this.changeControler(tar);
+		
+	},
+
+	naviSwitch_cb: function() {
+		if(this.props.naviClick) this.props.naviClick();
+	},
+
+	changeControler: function(tar) {
 
 		switch(tar) {
 			case 'checkList':
@@ -68,8 +109,8 @@ export default React.createClass({
 			case 'passenger':
 				this.setState({content: <Passenger panelSwitch={this.panelSwitch}></Passenger> });
 				break;
-			case 'task':
-				{/* 案件頁面 */}				
+			case 'flight-task-detail':
+				this.setState({content: <FlightTaskDetail panelChange={this.changeContent} panelSwitch={this.panelSwitch}></FlightTaskDetail> });
 				break;
 		}
 	},
@@ -77,13 +118,14 @@ export default React.createClass({
 	render() {
 
 		return (
-			<div className={'panel-main-wrap ' + this.state.panelState + ' ' + this.state.panelDisappear}>
+			<div className={'panel-main-wrap ' + this.state.panelState + ' ' + this.state.panelDisappear + ' ' + this.state.panelDeep}>
 
 				<div className="panel-bg"></div>
 
 				<div id="panel-main">
-					{/*<BtnCircle touchCallback={this.panelSwitch} style={btn_back_pos} btnType="icon-arrow-left"></BtnCircle>*/}
-					{this.state.content}
+					<div className={this.state.contentFade}>
+						{this.state.content}
+					</div>
 				</div>
 
 			</div>

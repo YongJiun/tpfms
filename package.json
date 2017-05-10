@@ -21,7 +21,8 @@
     "react": "^0.14.7",
     "react-document-title": "^2.0.2",
     "react-dom": "^0.14.7",
-    "react-router": "^2.0.0"
+    "react-router": "^2.0.0",
+    "slick-carousel": "^1.6.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",

@@ -1,8 +1,8 @@
+/* [library] */
 import React from 'react'
-import Navi from '../navi/navi-main'
 import IScroll from 'iscroll'
 
-import PanelMain from '../panel/panel-main'
+/* [components] */
 
 export default React.createClass({
 
@@ -12,12 +12,17 @@ export default React.createClass({
 		})	
 	},
 
+	contextTypes: {
+		naviSwitch: React.PropTypes.func,
+		panelSwitch: React.PropTypes.func
+	},
+
 	componentDidMount() {
 		var monthScroll = new IScroll('.header-tool-scroller', { scrollX: true, scrollY: false, mouseWheel: true });
 	},
 
 	naviTouch: function() {
-		this.child.naviSwitch();
+		this.context.naviSwitch();
 	},
 
 	switchTouch: function() {
@@ -97,25 +102,11 @@ export default React.createClass({
 									<li className="month-10"></li>
 									<li className="month-11"></li>
 									<li className="month-12"></li>
-	                                {/*<li><img src="./assets/header/month/01.png" alt="JAN 01" /></li>
-	                                	                                <li><img src="./assets/header/month/02.png" alt="FEB 02" /></li>
-	                                	                                <li><img src="./assets/header/month/03.png" alt="MAR 03" /></li>
-	                                	                                <li><img src="./assets/header/month/04.png" alt="APR 04" /></li>
-	                                	                                <li><img src="./assets/header/month/05.png" alt="MAY 05" /></li>
-	                                	                                <li><img src="./assets/header/month/06.png" alt="JUN 06" /></li>
-	                                	                                <li><img src="./assets/header/month/07.png" alt="JUL 07" /></li>
-	                                	                                <li><img src="./assets/header/month/08.png" alt="AUG 08" /></li>
-	                                	                                <li><img src="./assets/header/month/09.png" alt="SEP 09" /></li>
-	                                	                                <li><img src="./assets/header/month/10.png" alt="OCT 10" /></li>
-	                                	                                <li><img src="./assets/header/month/11.png" alt="NOV 11" /></li>
-	                                	                                <li><img src="./assets/header/month/12.png" alt="DEC 12" /></li>*/}
 	                            </ul>
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<Navi panelChange_cb={this.props.panelChange_cb}  onRef={ref => (this.child = ref)}></Navi>
 			</header>
 		)
 	}

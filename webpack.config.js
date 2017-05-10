@@ -10,7 +10,7 @@ var extractLess = new ExtractTextPlugin({
 module.exports = {
 	entry: './app/js/index.jsx',
 
-	devtool: 'sourcemap',
+	devtool: 'cheap-module-source-map',
 
 	resolve: {
 		extensions: [ '.js', '.jsx' ],

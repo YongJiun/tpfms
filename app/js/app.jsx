@@ -76,8 +76,7 @@ export default React.createClass({
 	},
 
 	componentWillUpdate(nextProps, nextState) {
-		console.log('update');	
-		console.log(this.state);
+		console.log('app update');
 	},
 
 	loadingFadeIn: function() {this.setState({loadingFade: '', loadingDisappear: ''}); },

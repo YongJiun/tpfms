@@ -1,10 +1,13 @@
 @import 'variable.less';
 
-.left {float: left; }
-.right {float: right; }
 
-.text-left {text-align: left; }
-.text-right {text-align: right; }
+
+.left, .fl {float: left; }
+.right, .fr {float: right; }
+
+.text-left, .tl {text-align: left; }
+.text-right, .tr {text-align: right; }
+.text-center, .tc {text-align: center; }
 
 .child-left, .child-right {
 	overflow: hidden;
@@ -27,6 +30,10 @@
 
 a.btn {
 	display: block;
+}
+
+.btns-wrap {
+	z-index: 10000;
 }
 
 .btn {
@@ -58,12 +65,14 @@ a.btn {
 	width: 120px; height: 120px;
 	opacity: 1;
 	z-index: 10;	
-	transition: 0.4s;
+	transition: 0.6s;
 }
 
-.btn-circle.fade-out {
-	opacity: 0;
-}
+.btn-circle .checkList-number {right: 8px; }
+
+.btn-circle.fade-out {opacity: 0; }
+.fade-out .btn-circle {opacity: 0; }
+
 
 .btn-circle-bg {
 	width: 100px; height: 100px;
@@ -72,11 +81,15 @@ a.btn {
 
 	&.red {background-color: @circle-red; }
 	&.black {background-color: black; }
-	&.gray-0 {background-color: #191919; }
-	&.gray-1 {background-color: @gray-1; }
+	&.gray-0 {background-color: @gray-1; }
+	&.gray-1 {background-color: #313131; }
 	&.gray-2 {background-color: #393939; }
-
+	&.gray-3 {background-color: #474747; }
+	&.gray-4 {background-color: #646464; }
+	&.gray-5 {background-color: #777777; }
 }
+
+
 
 .btn-camera {
 	display: block;
@@ -114,6 +127,12 @@ a.btn {
 		width: 46px; height: 48px;
 		background-size: auto 100%;
 	}
+}
+
+.btn-bt-single.shadow {
+	overflow: hidden;
+	box-shadow: 0 -5px 20px rgba(0,0,0,0.4);
+	background-color: @gray-4;
 }
 
 .btn-bt-single .btn-bt {
@@ -156,7 +175,7 @@ a.btn {
 		}
 	}
 
-	&.next > div:after {
+	&.next > div:after, &.add > div:after {
 		margin-left: 10px;
 		width: 20px;
 		height: 21px;
@@ -191,13 +210,61 @@ a.btn {
 	background-image: url(/assets/common/icon/arrow-left.png);
 }
 
+.icon-checklist {
+	background-size: 100% 100%;
+	background-image: url(/assets/common/icon/btn/icon-checklist.png);
+	&.btn-icon {
+		margin-left: -23px; 
+		margin-top: -23px;
+		width: 45px; height: 45px;
+	}
+}
+
+.icon-navi {
+	background-size: 100% auto;
+	background-image: url(/assets/common/icon/btn/icon-nav.png);
+}
+
+.icon-luggage {
+	background-image: url(/assets/common/icon/btn/icon-luggage.png);
+	&.btn-icon {
+		margin-left: -25px;
+		margin-top: -25px;
+		width: 50px; height: 50px;
+		background-size: contain;
+	}
+}
+
+.btn-icon.icon-peoples {background-size: 100% 100%; background-image: url(/assets/common/icon/btn/icon-peoples.png); }
+.btn-icon.icon-journal {background-image: url(/assets/common/icon/btn/icon-journal.png); }
+.btn-icon.icon-tick {background-image: url(/assets/common/icon/btn/icon-tick.png); }
+.btn-icon.icon-refresh {background-image: url(/assets/common/icon/btn/icon-refresh.png); }
+.btn-icon.icon-basicInfo {background-image: url(/assets/common/icon/btn/icon-basicInfo.png); }
+.btn-icon.icon-preferences {background-image: url(/assets/common/icon/btn/icon-preferences.png); }
+.btn-icon.icon-relationship {width: 50px; margin-left: -25px; margin-top: -18px; background-image: url(/assets/common/icon/btn/icon-relationship.png); }
+.btn-icon.icon-flightRecord {background-image: url(/assets/common/icon/btn/icon-flightRecord.png); }
+.btn-icon.icon-remark {width:46px; height: 50px; margin-left: -23px; margin-top: -25px; background-image: url(/assets/common/icon/btn/icon-remark.png); }
+
+
+
+
+
 .iscroll-scroller {
 	position: absolute;
 	overflow: hidden;
 }
 
+.full-window {width: 100%; height: 100%; }
 .full-width {width: 100%; }
 .full-height {height: 100%; }
+
+.fc {width: 100%; height: 100%; }
+.fw {width: 100%; }
+.fh {height: 100%; }
+
+.fw.ofh {
+	overflow: hidden;
+}
 
 .text-center {
 	text-align: center;

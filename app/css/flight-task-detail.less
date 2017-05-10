@@ -1,0 +1,388 @@
+@import 'variable.less';
+
+.ftd-scroll {
+	position: relative;
+	height: 79vh;
+	overflow: hidden;
+}
+
+.ftd-slick {
+	position: relative;
+	display: inline-block;
+	width: @panelW;
+
+	&.slick-dotted.slick-slider {
+		margin-bottom: 0;
+	}
+	
+	.slick-dots {
+		position: absolute;
+		height: 20px;
+		top: 0;
+
+		li {
+			width: 14px;
+		}
+
+		li.slick-active button:before {
+			color: black;
+		}
+
+		li button:before {
+			opacity: 1;
+			color: white;
+			font-size: 14px;
+		}
+	}
+}
+
+.ftd-title-box {
+	overflow: hidden;
+	margin: 13px 0 4px;
+	padding: 0 5px;
+}
+
+.ftd-task-number {
+	margin-left: -3px;
+	padding: 8px 15px;
+	background-color: @gray-2;	
+	border-radius: 20px;
+	color: white;
+	font-size: 18px;
+	line-height: 18px;
+	font-weight: 500;
+}
+
+.ftd-task-name {
+	margin: 0 5px;
+	font-size: 28px;
+	font-weight: 700;
+	line-height: 32px;
+	color: @gray-2;
+	letter-spacing: 1px;
+}
+
+.ftd-task-txt {
+	padding: 0 3px;
+	font-size: 24px;
+	line-height: 30px;
+	color: #787878;
+}
+
+.ftd-slick {
+	position: relative;
+}
+
+.ftd-leg-wrap {
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+.ftd-leg {
+	position: relative;
+	float: left;
+	width: @panelW;
+}
+
+.ftd-leg .leg-box {
+	min-height: 50px;
+	// border: 1px solid #aaa;
+}
+
+.ftd-leg-wrap .leg-label {
+	
+	position: relative;
+	padding: 30px 55px 50px;
+	box-shadow: 0 3px 15px rgba(0,0,0,0.6);
+	z-index: 10;
+
+	&.main {background-color: @label-red; }
+	&.complete {background-color: @task-complete-green; }
+}
+
+.leg-spend-time {
+
+	display: inline-block;
+	width: 100%;
+	border-radius: 50px;
+	border: 1px solid white;
+	
+
+	>div {
+		float: left;
+		width: 50%;
+		padding: 15px 0;
+		text-align: center;
+		color: white;
+
+		&:first-child {
+			border-right: 1px solid white;
+		}
+	}
+}
+
+.leg-info {
+	
+	position: relative;
+	overflow: hidden;
+	padding: 12px 4px 0;
+	color: white;
+
+	.leg-step {
+		float: left;
+		width: 50%;
+
+		&:first-child {padding-right: 70px; }
+		&:last-child {padding-left: 55px; }
+	}
+
+	.leg-code {
+		margin: 8px 0;
+		line-height: 26px;
+	}
+
+	.leg-step i {
+		display: inline-block;
+		background-repeat: no-repeat;
+		background-position: center bottom;
+
+		&.icon-airplain-takeoff-w-bl, &.icon-airplain-landing-w-bl {
+			margin: 3px 8px 0 0;
+			width: 31px; height: 20px;	
+		}
+
+		&.icon-fuel {
+			position: absolute;
+			margin: 0 0 0 8px;
+			width: 26px; height: 27px;	
+			background-image: url(/assets/common/icon/fuel.png);
+		}
+	}
+
+	.leg-txt-sm {
+		font-size: 24px;
+		font-weight: 700;
+	}
+
+	.leg-txt-lg {
+		margin: 8px 0 10px;
+		font-size: 32px;
+		font-weight: 700;
+		line-height: 36px;
+	}
+
+	.leg-txt-xs {
+		font-size: 20px;
+	}
+
+	.leg-tiem {
+		white-space: nowrap;
+
+		i.icon-clock {
+			display: inline-block;
+			margin: 0 5px -8px 0;
+			width: 22px; height: 22px;
+			background-image: url(/assets/common/icon/clock.png);
+			background-repeat: no-repeat;
+			background-position: left bottom;
+		}
+	}
+
+	.leg-serial {
+		position: absolute;
+		margin-left: -50px;
+		width: 80px;
+		left: 50%; top: 100px;
+		font-size: 22px;
+		font-weight: 900;
+		text-align: center;
+
+		i.icon-leg-airplain {
+			display: inline-block;
+			width: 39px; height: 38px;
+			margin-bottom: 10px;
+			background-image: url(/assets/common/icon/airplain-leg-w.png);
+		}
+	}
+}
+
+
+
+
+
+
+.leg-hnt {
+	width: 101%;
+	color: white;
+	overflow: hidden;
+	background-color: #3e3e3e;
+	transition: 0.5s;
+
+	&.open {
+		transform: translateZ(0);
+		max-height: 600px; 
+	}
+	&.close {
+		transform: rotateZ(360deg);
+		max-height: 75px; 
+	}
+	
+	.hnt-title {
+		position: relative;
+		padding: 24px 70px;
+		font-size: 25px;
+		font-weight: 500;
+		border-bottom: 2px solid white;
+	}
+
+	.hnt-switcher {
+		position: absolute;
+		right: 90px; top: 0;
+		width: 80px;
+		height: 75px;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-image: url(/assets/common/icon/arrow-bottom-w.png);
+		transition: 0.5s;
+
+		&.close {transform: rotate(0deg); }
+		&.open {transform: rotate(180deg); }
+	}
+
+	.hnt-content {
+		display: inline-block;
+		width: 100%;
+		border: 1px solid rgba(0,0,0,0);
+	}
+
+	.hnt-content-box {
+		float: left;
+		width: 50%;
+		padding: 20px 17px;
+
+		&:first-child {
+
+		}
+
+		.hnt-txt-md, .hnt-txt-sm {
+			a {
+				color: white;
+				text-decoration: none;	
+			}
+			
+		}
+
+		.hnt-txt-md {
+			padding-left: 42px;
+			font-size: 25px;
+			font-weight: 700;
+			line-height: 34px;
+		}
+
+		.hnt-txt-sm {
+			position: relative;
+			margin: 5px 0;
+			padding-left: 42px;
+			font-style: 22px;
+			font-weight: 700;
+			line-height: 32px;
+
+			i {
+				position: absolute;
+				display: inline-block;
+				left: 0;
+				// margin: 0 8px 0 0;
+				width: 30px; height: 28px;
+				background-position: right center;
+				background-repeat: no-repeat;
+
+				&.icon-airplain {background-image: url(/assets/common/icon/airplain-takeoff-xs-w.png); }
+				&.icon-handler {background-image: url(/assets/common/icon/people-xs-w.png); }
+				&.icon-phone {background-image: url(/assets/common/icon/phone-xs-w.png); }
+				&.icon-car {background-image: url(/assets/common/icon/car-xs-w.png); }
+
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+.leg-seat {
+	padding: 30px 0 70px;
+	background-color: @gray-seat;
+}
+
+.seat-format {
+	position: relative;
+	background-repeat: no-repeat;
+	background-position: center center;
+
+	&.seat-0 {
+		height: 800px;
+		background-image: url(/assets/seat/seat-0.png);	
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ftd-p-content {
+	opacity: 1;
+	transition: 0.3s;
+
+	&.fade-out {
+		opacity: 0;
+	}
+}
+
+
+
+
+
+
+
+.ftd-p-content {
+	height: 84vh;
+}
+
+.ftd-index-wrap {
+	min-height: 84vh;
+	background-color: @gray-seat;
+	overflow: hidden;
+
+	.seat-format {
+		margin: 50px 0;
+	}
+}

@@ -3,7 +3,7 @@ import React from 'react'
 /* passenger default list */
 import PassengerDefault from './passenger-default'
 
-import PersonalDetail from './personal-detail'
+import PassengerDetail from './passenger-detail'
 
 /* basic */
 import PassengerFormBasic from './passenger-form-basic'
@@ -50,7 +50,7 @@ export default React.createClass({
 		return {
 			mode: '',
 			current: 'default'
-			// current: 'personal-detail'
+			// current: 'passenger-detail'
 			// current: 'add-preferences'
 		}	
 	},
@@ -84,7 +84,7 @@ export default React.createClass({
 			var s = '';
 			switch(this.state.current) {
 
-				case 'personal-detail':
+				case 'passenger-detail':
 					s = 'default';
 					this.setState({mode: ''});
 					this.pers.fadeOut();
@@ -97,7 +97,7 @@ export default React.createClass({
 					break;
 				case 'add-basic':
 					if(this.state.mode == 'personal-editing') {
-						s = 'personal-detail';
+						s = 'passenger-detail';
 						this.btnGear.fadeIn();
 						this.btnEdit.fadeIn();
 					}
@@ -223,7 +223,7 @@ export default React.createClass({
 		this.btnGear.fadeOut();
 		this.btnPlus.fadeOut();
 
-		this.stepNext('personal-detail');
+		this.stepNext('passenger-detail');
 	},
 
 
@@ -251,7 +251,7 @@ export default React.createClass({
 						
 						<PassengerDefault personalTouch_cb={this.personalDetail} step="passenger"></PassengerDefault>
 						
-						<PersonalDetail onRef={ref => (this.pers = ref)}></PersonalDetail>
+						<PassengerDetail onRef={ref => (this.pers = ref)}></PassengerDetail>
 						
 						<PassengerFormBasic stateChange={this.basicStateChange} mode={this.state.mode || 'add'} step="basic"></PassengerFormBasic>
 						<PassengerFormassport onRef={ref => (this.pasp = ref)} mode={this.state.mode || 'add'} step="passport"></PassengerFormassport>

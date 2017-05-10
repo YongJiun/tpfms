@@ -1,21 +1,39 @@
+/* [library] */
 import React from 'react'
+import $ from 'jquery'
+
+/* [components] */
 import HomeTask from './home-task'
 import Header from '../../header/header-main'
 import Panel from '../../panel/panel-main'
-import $ from 'jquery'
+import Navi from '../../navi/navi-main'
+
 
 var api_url = 'http://flight.faw-ogilvy.com/api/';
+var deep = false;
 
 export default React.createClass({
+
+	childContextTypes: {
+		naviSwitch: React.PropTypes.func,
+		panelSwitch: React.PropTypes.func
+	},
 
 	contextTypes: {
 		user: React.PropTypes.object,
 		testValue: React.PropTypes.string,
 	},
 
-	getInitialState() {
+	getChildContext: function() {
+		return {
+			naviSwitch: this.naviSwitch,
+			panelSwitch: this.panelSwitch
+		}
+	},
 
-		console.log(window.user);
+	getInitialState() {
+		
+		console.log('user:', window.user);
 
 		return {
 			v: this.context.testValue
@@ -37,45 +55,42 @@ export default React.createClass({
 		console.log('home-main update: ', this.context.user);	
 	},*/
 	
+	naviSwitch: function() {
+		this.childNavi.naviSwitch();
+		/*if(!deep) {deep = true; this.childPanel.toDeep(); } else { deep = false; setTimeout(this.childPanel.toDeep, 500) }*/
+	},
 
-	checkList_cb: function() {
+	panelSwitch: function() {
+		this.childPanel.panelSwitch();
+	},
+
+	checkList: function() {
 		this.childPanel.changeContent('checkList');
         this.childPanel.panelSwitch();
     },
 
-    panelChange_cb: function(tar) {
+    panelChange: function(tar) {
     	this.childPanel.panelSwitch();
     	this.childPanel.changeContent(tar);
     },
 
-    ddTouch: function() {
-    	console.log('ddTouch', this.context.testValue);
-    	this.context.testValue = 'new testValue';
-    	console.log('ddTouch', this.context.testValue);
+    taskClick: function(num) {
+    	this.childPanel.panelSwitch();
+    	this.childPanel.changeContent('flight-task-detail', num);
     },
 
 	render() {
 
-		var ss = {
-			position: 'absolute',
-			left: '0',
-			top: '0',
-			width: '100px',
-			height: '100px',
-			zIndex: 1000000,
-			backgroundColor: 'red'
-		};
-
 		return (
 			<div className="full-height">
 
-				<Header checkList_cb={this.checkList_cb} panelChange_cb={this.panelChange_cb}></Header>
+				<Header checkList_cb={this.checkList} panelChange_cb={this.panelChange}></Header>
 
-				<HomeTask></HomeTask>
+				<HomeTask click_cb={this.taskClick}></HomeTask>
 
-				<div onTouchStart={this.ddTouch} style={ss}>{this.state.v}</div>
+				<Navi panelChange_cb={this.panelChange}  onRef={ref => (this.childNavi = ref)}></Navi>
 
-				<Panel onRef={ref => (this.childPanel = ref)}></Panel>
+				<Panel naviSwitch_cb={this.naviSwitch} onRef={ref => (this.childPanel = ref)}></Panel>
 			</div>
 		)
 	}

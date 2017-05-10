@@ -9,7 +9,6 @@ export default React.createClass({
 				<div className="ps-form-title">{this.props.title}</div>
 				<div className="ps-form-content">
 					{this.props.placeholder}
-					{/*<input className="ps-form-input" type={this.props.inputType} name="" placeholder={this.props.placeholder} />*/}
 				</div>
 			</div>
 		)

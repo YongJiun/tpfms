@@ -22,6 +22,9 @@ export default React.createClass({
 			case 'Complete':
 				cls = 'complete green icon-bt-tick-g';
 				break;
+			case 'Add':
+				cls = 'add green icon-bt-arrow-r-g';
+				break
 		}
 
 		return cls;

@@ -1,62 +1,64 @@
 import React from 'react'
-import IScroll from 'iscroll'
-import PanelTitle from '../panel-title'
-import BtnCircle from '../../components/btn-circle-red'
-import PassengerInput from './passenger-form-input-0'
-import FlightRecord from '../../components/flight-record/fr-main'
 
-import BtnBT from '../../components/btn-bt'
-
+/* [lib] */
 import $ from 'jquery'
+import IScroll from 'iscroll'
+
+/* [components] */
+import BtnBT from '../../components/btn-bt'
+import PanelTitle from '../panel-title'
+import BtnCircle from '../../components/btn-circle'
+import PassengerInput from './passenger-form-input-0'
+import PassengerFormBlock from './passenger-form-block-0'
+import FlightRecord from '../../components/flight-record/fr-main'
 
 var psPerScroll = '';
 var inputList = [];
-
-
 
 export default React.createClass({
 
 	getInitialState() {
 		return {
 			title: 'passenger-personal-detail',
-			visible: 'display-no'
+			/*visible: 'display-no'*/
 		}	
 	},
 
 	contextTypes: {
-		tag: React.PropTypes.string,
-		className: React.PropTypes.string,
-		data: React.PropTypes.array,
-		obj: React.PropTypes.object
+		user: React.PropTypes.object,
+		panelState: React.PropTypes.object
 	},
 
 	componentWillMount() {
-
-		console.log('ppd.jsx', this.context);	
 		inputList = [];
 		inputList = this.getListContent();
 	},
 
 	getListContent() {
 
-		var lc = [], title = '', icon = '', iconClass = '';
+		var lc = [], title = '', id = '', iconClass = '';
 
 		for(var i in inputFormat) {
 
 			title = inputFormat[i].title;
 
-			if(title == 'Passport' || title == 'VISA' || title == 'Secretary Contact' || title == 'Emergency Contact' || title == 'Flight Record') {
+			if(title == 'Passport' || title == 'VISA' || title == 'Secretary Contact' || title == 'Emergency Contact' || title == 'Flight Record' || title == 'Preferences' || title == 'Relationship') {
 
-				icon = (title.toLowerCase().replace(' ', '-'));
-				iconClass = 'icon-' + icon + '-w';
-				if(title == 'VISA') title = '';
+				id = (title.toLowerCase().replace(' ', '-'));
+				iconClass = 'icon-' + id + '-b-w';
+				
+				var titleText = title.toLowerCase();
+				if(title == 'VISA') {
+					title = '';
+				}
 
 				lc.push(
-					<li className="ps-block ud-l"
+					<li id={"detail-title-"+id}
+						className="ps-block ud-l"
 						key={"input-list-"+i}>
 						
 						<div 
-							className={"ps-form-title full-width " + icon + ' ' + iconClass}>
+							className={"ps-form-title full-width " + id + ' ' + iconClass}>
 							{title}
 						</div>
 					</li>
@@ -68,12 +70,12 @@ export default React.createClass({
 						className="ps-block ud-l"
 						key={"input-list-"+i}>
 						
-						<PassengerInput 
+						<PassengerFormBlock 
 							titleClass=""
 							title={inputFormat[i].title} 
 							placeholder={inputFormat[i].placeholder} 
 							inputType={inputFormat[i].inputType}>
-						</PassengerInput>
+						</PassengerFormBlock>
 
 					</li>
 				);
@@ -84,30 +86,24 @@ export default React.createClass({
 	},
 
 	componentDidMount() {
-		this.props.onRef(this);	
+		if(this.props.onRef) this.props.onRef(this);
+		psPerScroll = new IScroll('.ps-p-info-scroll', {preventDefault: false, mouseWheel: true });
 	},
   	
 	componentWillUnmount() {
-		this.props.onRef(undefined);
-	},
-
-	fadeIn: function() {
-		this.setState({visible: ''});
-		setTimeout(function() {
-			psPerScroll = new IScroll('.ps-p-info-scroll', {preventDefault: false, mouseWheel: true });
-		}, 200);
-	},
-
-	fadeOut: function() {
-		setTimeout(function(self) {
-			self.setState({visible: 'display-no'});
-			psPerScroll.destroy();
-			psPerScroll = null;
-		}, 500, this);
+		if(this.props.onRef) this.props.onRef(undefined);
+		psPerScroll.destroy();
+		psPerScroll = null;
 	},
 
 	btnNext: function() {
 		if(this.props.stateChange) this.props.stateChange('secretary');
+	},
+
+	scrollTo: function(tar) {
+		
+		var h = $('#detail-title-' + tar).position().top;
+		psPerScroll.scrollTo(0, -h, 1000, IScroll.utils.ease.back);
 	},
 
 	render() {
@@ -116,16 +112,13 @@ export default React.createClass({
 
 			<div className={'passenger-personal-detail passenger-f-w ' + this.state.visible}>
 				
-				<PanelTitle titleContent={this.state.title}></PanelTitle>
+				{/*<PanelTitle titleContent={this.state.title}></PanelTitle>*/}
+				
 				<div className="ps-block-scroll ps-p-info-scroll">
 					<div className="iscroll-scroller full-width">
 						<form>
 							<ul className="passenger-ul">
-								
 								{inputList}
-
-								<FlightRecord frState="edit"></FlightRecord>
-								<FlightRecord frState="main"></FlightRecord>
 							</ul>
 						</form>
 					</div>
@@ -155,6 +148,10 @@ var inputFormat = [
 	
 	{title: 'Emergency Contact'},
 	{title: 'name', placeholder: '陳美惠', inputType: 'text' },
-	{title: 'Relationship', placeholder: 'Mother', inputType: 'text'},
+
+	{title: 'Preferences'},
+
+	{title: 'Relationship'},
+
 	{title: 'Flight Record'},
 ];

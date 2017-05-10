@@ -6,10 +6,7 @@ import CheckItem from './checkList-item'
 
 var clScroll
 
-const btn_back_pos = {
-	right: '-60px',
-	top: '12px',
-};
+const btn_back_pos = {right: '-60px', top: '28px', };
 
 export default React.createClass({
 

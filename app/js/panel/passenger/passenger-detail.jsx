@@ -1,21 +1,19 @@
 import React from 'react'
+
+/* [lib] */
+import $ from 'jquery'
 import IScroll from 'iscroll'
+
+/* [components] */
+import BtnBT from '../../components/btn-bt'
 import PanelTitle from '../panel-title'
 import BtnCircle from '../../components/btn-circle'
-
 import PassengerInput from './passenger-form-input-0'
 import PassengerFormBlock from './passenger-form-block-0'
-
 import FlightRecord from '../../components/flight-record/fr-main'
-
-import BtnBT from '../../components/btn-bt'
-
-import $ from 'jquery'
 
 var psPerScroll = '';
 var inputList = [];
-
-const btn_pref_pos = {right: '-60px', top: '80vh', };
 
 export default React.createClass({
 
@@ -89,11 +87,11 @@ export default React.createClass({
 	},
 
 	componentDidMount() {
-		this.props.onRef(this);	
+		if(this.props.onRef) this.props.onRef(this);	
 	},
   	
 	componentWillUnmount() {
-		this.props.onRef(undefined);
+		if(this.props.onRef) this.props.onRef(undefined);
 	},
 
 	fadeIn: function() {
@@ -128,6 +126,7 @@ export default React.createClass({
 			<div className={'passenger-personal-detail passenger-f-w ' + this.state.visible}>
 				
 				<PanelTitle titleContent={this.state.title}></PanelTitle>
+				
 				<div className="ps-block-scroll ps-p-info-scroll">
 					<div className="iscroll-scroller full-width">
 						<form>

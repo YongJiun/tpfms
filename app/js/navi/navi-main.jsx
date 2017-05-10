@@ -15,12 +15,17 @@ export default React.createClass({
 		};
 	},
 
+	contextTypes: {
+		naviSwitch: React.PropTypes.func,
+		panelSwitch: React.PropTypes.func
+	},
+
 	componentDidMount() {
-		this.props.onRef(this)
+		if(this.props.onRef) this.props.onRef(this)
 	},
   	
 	componentWillUnmount() {
-		this.props.onRef(undefined)
+		if(this.props.onRef) this.props.onRef(undefined)
 	},
 
 	naviSwitch: function() {
@@ -43,6 +48,8 @@ export default React.createClass({
 
 		var tar = $(e.target).attr('class');
 
+		console.log(tar);
+
 		if(this.props.panelChange_cb) {
 			if(tar == 'passenger') this.props.panelChange_cb(tar);
 			else if(tar == 'personal-information') this.logout();
@@ -64,7 +71,7 @@ export default React.createClass({
 
 				{/* pannel 上半部 */}
 				<div className="navi-content-wrap navi-bg bg-main-airplain">
-					<div className="btn navi-close" onTouchStart={this.naviSwitch}>
+					<div className="btn navi-close" onTouchStart={this.context.naviSwitch}>
 						<div className="navi-close-icon icon-arrow-right"></div>
 					</div>
 				</div>

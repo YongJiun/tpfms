@@ -5,7 +5,6 @@ import $ from 'jquery'
 
 import style from './../css/style.less'
 
-
 function isPassive() {
     var supportsPassiveOption = false;
     try {

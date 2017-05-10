@@ -17,7 +17,10 @@
 }
 
 .passenger-ul {
-	padding-bottom: 100px;
+	padding-bottom: 80px;
+	&.padding-top-sm {
+		padding-top: 15px;
+	}
 }
 
 .panel-passenger-buffer {
@@ -38,7 +41,7 @@
 	transition: 0.5s @InOutExpo;
 
 	&.default {transform: translate(0, 0); }
-	&.add-basic, &.personal-detail {transform: translate(-@panelW, 0); }
+	&.add-basic, &.passenger-detail {transform: translate(-@panelW, 0); }
 	&.add-secretary, &.add-passport, &.add-visa {transform: translate(-@panelW * 2, 0); }
 	&.add-preferences {transform: translate(-@panelW * 3, 0); }
 	&.add-relationship-0 {transform: translate(-@panelW * 4, 0); }
@@ -46,7 +49,7 @@
 
 	&.personal-editing {
 		&.default {transform: translate(0, 0); }
-		&.personal-detail {transform: translate(-@panelW, 0); }
+		&.passenger-detail {transform: translate(-@panelW, 0); }
 		&.add-basic {transform: translate(-@panelW * 2, 0); }
 		&.add-secretary, &.add-passport, &.add-visa {transform: translate(-@panelW * 3, 0); }
 		&.add-preferences {transform: translate(-@panelW * 4, 0); }
@@ -57,11 +60,13 @@
 
 .ps-block-scroll {
 	position: relative;
-	height: 81vh;
+	height: 84vh;
 	overflow: hidden;
 }
 
-.ps-block-scroll.ps-relationship0-scroll {
+.ps-block-scroll.ps-relationship0-scroll, 
+.ps-block-scroll.ps-relationship-list,
+.ps-block-scroll.ps-relationship-form {
 	height: 70vh;
 }
 
@@ -223,7 +228,7 @@
 	}	
 
 	.p-portrait-wrap {
-		padding: 44px 25px 44px 38px;
+		padding: 44px 20px 44px 40px;
 	}
 
 	.p-detail-wrap {
@@ -231,8 +236,9 @@
 		color: @gray-3;
 		font-size: 22px;
 		line-height: 32px;
+		width: 50%;
 
-		input {
+		div, input {
 			padding: 0;
 			margin: 0 0 5px 0;
 			font-size: 26px;
@@ -244,6 +250,16 @@
 			&::-moz-placeholder {color: @gray-2; opacity:  1; }
 			&:-ms-input-placeholder {color: @gray-2; }
 		}
+	}
+
+	.delete {
+		position: absolute;
+		right: 27px;
+		font-size: 20px;
+		font-weight: lighter;
+		line-height: 172px;
+		text-align: right;
+		color: @circle-red;
 	}
 }
 

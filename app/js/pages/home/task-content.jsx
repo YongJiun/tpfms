@@ -9,10 +9,14 @@ export default React.createClass({
 		})
 	},
 
+	taskContentClick: function() {
+		if(this.props.clickCallback) this.props.clickCallback(this.props.taskNum);
+	},
+
 	render() {
 
 		return (
-			<li className="task-wrap">
+			<li className="task-wrap" onClick={this.taskContentClick}>
 				<div className={'task-panel ' + this.state.panelClass}>
 					<div className="task-form task-form-left">
 						<div className="task-info-date">2017/03/23 08:20 L</div>

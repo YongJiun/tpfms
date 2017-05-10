@@ -44,6 +44,7 @@ export default React.createClass({
 			<div onTouchStart={this.btnTouch} className={"btn btn-circle " + this.state.fadeOut + " " + this.state.visible} style={this.props.style}>
 				<div className={"btn-circle-bg " + this.props.color || 'red'}></div>
 				<div className={'btn-icon ' + this.props.btnType}></div>
+				{this.props.child}
 			</div>
 		)
 	}

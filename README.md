@@ -1,4 +1,4 @@
-author : Yong-Jiun, Tsao <d781115621@gmail.com>
+author: Yong-Jiun, Tsao <d781115621@gmail.com>
 license: Top Speed Sky Team <TAIWAN R.O.C.>
 
 # TPFMS flight control system
