@@ -11,7 +11,7 @@ export default React.createClass({
 
 	getInitialState() {
 
-		preview = <RelationShipPreview onRef={ref => (this.psgPreferences = ref)}></RelationShipPreview>;
+		preview = <RelationShipPreview passenger={this.props.passenger} onRef={ref => (this.psgPreferences = ref)}></RelationShipPreview>;
 		form 	= <RelationShipForm onRef={ref => (this.psgPreferences = ref)}></RelationShipForm>;
 		list 	= <RelationShipList onRef={ref => (this.psgPreferences = ref)}></RelationShipList>;
 

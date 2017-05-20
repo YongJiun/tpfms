@@ -10,19 +10,12 @@ export default React.createClass({
 	},
 
 	fadeOut: function() {
-
 		this.setState({fadeOut: 'fade-out'});
-		
-		setTimeout(function(self) {
-			self.setState({visible: 'disappear'});
-		}, 50, this);
+		setTimeout(() => {this.setState({visible: 'disappear'}); }, 50);
 	},
 
 	fadeIn: function() {
-		this.setState({
-			fadeOut: '',
-			visible: ''
-		});
+		this.setState({fadeOut: '', visible: ''});
 	},
 
 	componentDidMount() {
@@ -34,14 +27,29 @@ export default React.createClass({
 		if(this.props.onRef) this.props.onRef(undefined);
 	},
 
-	btnTouch: function() {
-		if(this.props.touchCallback) this.props.touchCallback();
+	btnTouch: function(e) {
+		if(this.props.touchCallback) this.props.touchCallback(e, this.props.name);
 	},
 
 	render() {
 
+		var fade, disappear;
+
+		if(this.props.status == 'fade-out') {
+
+			fade = 'fade-out';
+			disappear = 'disappear';
+		}
+
+
+
 		return (
-			<div onTouchStart={this.btnTouch} className={"btn btn-circle " + this.state.fadeOut + " " + this.state.visible} style={this.props.style}>
+			<div is 
+				 tar={this.props.name}
+				 class={"btn btn-circle" + " " + this.props.color + " " + fade + " " + disappear} 
+				 onTouchStart={this.btnTouch}
+				 style={this.props.style}>
+
 				<div className={"btn-circle-bg " + this.props.color || 'red'}></div>
 				<div className={'btn-icon ' + this.props.btnType}></div>
 				{this.props.child}

@@ -3,6 +3,7 @@ import React from 'react'
 import IScroll from 'iscroll'
 
 /* [components] */
+var scroller;
 
 export default React.createClass({
 
@@ -13,16 +14,16 @@ export default React.createClass({
 	},
 
 	contextTypes: {
-		naviSwitch: React.PropTypes.func,
-		panelSwitch: React.PropTypes.func
+		navi: React.PropTypes.object,
+		panel: React.PropTypes.object,
 	},
 
 	componentDidMount() {
-		var monthScroll = new IScroll('.header-tool-scroller', { scrollX: true, scrollY: false, mouseWheel: true });
+		scroller = new IScroll('.header-tool-scroller', { scrollX: true, scrollY: false, mouseWheel: true });
 	},
 
 	naviTouch: function() {
-		this.context.naviSwitch();
+		this.context.navi.switch();
 	},
 
 	switchTouch: function() {
@@ -40,7 +41,9 @@ export default React.createClass({
 	},
 
 	toolTaskTouch: function() {
-		if(this.props.checkList_cb) this.props.checkList_cb();
+		this.context.panel.switch('open');
+		this.context.panel.change('check-list');
+		/*if(this.props.checkList_cb) this.props.checkList_cb();*/
 	},
 
 	render() {

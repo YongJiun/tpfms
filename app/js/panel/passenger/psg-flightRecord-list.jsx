@@ -6,19 +6,21 @@ import FlightRecord from '../../components/flight-record/fr-main'
 
 export default React.createClass({
 
-
-
 	render() {
+
+		var content = [],
+			data = this.props.passenger.flight_record;
+
+		for(var i in data) {
+			content[i] = (
+				<FlightRecord key={'psg-fr-'+i} frNum={i} data={data[i]} size="xs"></FlightRecord>
+			);
+		}
 
 		return (
 			<div>
 				<ul className="passenger-ul padding-top-sm">
-					<FlightRecord frState="complete" size="xs"></FlightRecord>
-					<FlightRecord frState="complete" size="xs"></FlightRecord>
-					<FlightRecord frState="edit" size="xs"></FlightRecord>
-					<FlightRecord frState="edit" size="xs"></FlightRecord>
-					<FlightRecord frState="main" size="xs"></FlightRecord>
-					<FlightRecord frState="wait" size="xs"></FlightRecord>
+					{content}
 				</ul>
 			</div>
 		)

@@ -3,11 +3,12 @@ import React from 'react'
 import IScroll from 'iscroll'
 
 /* [components] */
-import RelationshipSinglePreview from './components/relationship-single-preview'
+import RelationPreview from './components/relationship-single-preview'
 import BtnBT from '../../components/btn-bt'
 
 var scroller, 
 	passengerList = [],
+	relationContent = [],
 	client = [
 		{name: 'abcasd', gender: '男', }, 
 		{name: 'abcaas', gender: '女', }, 
@@ -40,15 +41,16 @@ export default React.createClass({
 
 	render() {
 
-		if(passengerList.length == 0 && client.length != 0) {
+		var data = this.props.passenger.relationship;
+
+		for(var i in data) {
 			
-			for(var i in client) {
-				passengerList.push(
-					<li className="ps-block ud-l" key={'ps-c-'+i}>
-						<RelationshipSinglePreview name={client[i].name} gender={client[i].gender} num={i}></RelationshipSinglePreview>
-					</li>
-				);
-			}
+			relationContent[i] = (
+				
+				<li className="ps-block ud-l" key={'psg-relation-preview-'+i}>
+					<RelationPreview relationPerson={data[i]}></RelationPreview>
+				</li>
+			);
 		}
 
 		return (
@@ -58,7 +60,7 @@ export default React.createClass({
 				<div className="ps-block-scroll">
 					<div className="iscroll-scroller full-width">
 						<ul className="passenger-ul">
-							{passengerList}
+							{relationContent}
 						</ul>
 					</div>
 				</div>

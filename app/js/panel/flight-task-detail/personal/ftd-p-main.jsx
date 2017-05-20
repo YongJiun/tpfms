@@ -1,9 +1,11 @@
 /* [library] */
 import React from 'react'
+import $ from 'jquery'
 
 /* [components] */
 import Title from '../../panel-title'
 import BtnCircle from '../../../components/btn-circle'
+import gp from '../../../global/parameter'
 
 /* [pages] */
 import Index from './ftd-p-index'
@@ -11,114 +13,161 @@ import BasicInfo from '../../passenger/psg-basic-main'
 import Preferences from '../../passenger/psg-preferences-main'
 import Relationship from '../../passenger/psg-relationship-main'
 import FlightRecord from '../../passenger/psg-flightRecord-main'
+import Remark from '../../passenger/psg-Remark-main'
 
-
-const btn_back_pos = {right: '-60px', top: '5px', };
-const btn_basicInfo_pos = {right: '-60px', bottom: '580px' };
-const btn_preferences_pos = {right: '-60px', bottom: '470px' };
-const btn_relationship_pos = {right: '-60px', bottom: '360px' };
-const btn_flightRecord_pos = {right: '-60px', bottom: '250px' };
-const btn_luggage_pos = {right: '-60px', bottom: '140px' };
-const btn_remark_pos = {right: '-60px', bottom: '30px' };
-
-
-
-
+var btn_back_pos = gp.getBtnPos('top', 0, 0, 0);
+var btn_edit_pos = gp.getBtnPos('top', 1, 0, 0);
+var btn_basicInfo_pos = gp.getBtnPos('bottom', 5, 0, 0);
+var btn_preferences_pos = gp.getBtnPos('bottom', 4, 0, 0);
+var btn_relationship_pos = gp.getBtnPos('bottom', 3, 0, 0);
+var btn_flightRecord_pos = gp.getBtnPos('bottom', 2, 0, 0);
+var btn_luggage_pos = gp.getBtnPos('bottom', 1, 0, 0);
+var btn_remark_pos = gp.getBtnPos('bottom', 0, 0, 0);
 
 var index, basicInfo, preferences, relationship, flightRecord, remark;
 
-
-
 export default React.createClass({
+
+	contextTypes: {
+		Token: React.PropTypes.string,
+		panel: React.PropTypes.object,
+		ftdChange: React.PropTypes.func,
+	},
 
 	getInitialState() {
 
-		index = <Index></Index>;
-		basicInfo = <BasicInfo></BasicInfo>;
-		preferences = <Preferences></Preferences>
-		relationship = <Relationship></Relationship>
-		flightRecord = <FlightRecord></FlightRecord>
-
 		return {
-			content: index,
-			// content: basicInfo,
-			// content: preferences,
-			// content: relationship,
-			// content: flightRecord,
+			current: 'index',
+			trip: this.props.trip,
+			passenger: '',
+			passengerId: '',
 			btnsAppear: ''
 		}	
 	},
 
-	componentWillMount() {
-		this.btnsFadeCheck();
-	},
+	contentInit: function() {
 
-	componentWillUnmount() {
 		
+
+		this.setState({content: index });
+		this.context.panel.loading();
 	},
 
-	componentWillUpdate(nextProps, nextState) {
+	contentChanger: function(next) {
 
-	},
+		var current = this.state.current;
 
-	btnsFadeCheck: function(action) {
-		
-		if(action) this.setState({btnsAppear: action});
-		else {
-			if(this.state.content != index) this.setState({btnsAppear: 'fade-out'});
-			else this.setState({btnsAppear: ''});
-		}
-	},
-
-	btnBackClick: function() {
-
-		if(this.state.content == index) this.props.panelSwitch();
-		else {
-			this.contentChanger(index);
-		}		
-	},
-
-	btnBasicInfoClick: function() {this.contentChanger(basicInfo); },
-	btnPreferencesClick: function() {this.contentChanger(preferences); },
-	btnRelationship: function() {this.contentChanger(relationship); },
-	btnFlightRecordClick: function() {this.contentChanger(flightRecord); },
-	btnLuggageClick: function() {this.contentChanger(basicInfo); },
-	btnRemarkClick: function() {this.contentChanger(basicInfo); },
-
-	contentChanger: function(content) {
-
-		if(content == index) this.btnsFadeCheck(' ');
+		if(current == 'index') this.btnsFadeCheck(' ');
 		else this.btnsFadeCheck('fade-out');
 
 		this.contentFadeSwitch();
 		
 		setTimeout(() => {
-			this.setState({content: content });
 			this.contentFadeSwitch();
-		}, 300);
+			this.setState({current: next });
+		}, 500);
 	},
 
+	componentWillMount() {
+		/*this.btnsFadeCheck();*/
+		/*if(this.state.passenger == '') this.api_getPassengerDetail();*/
+	},
+
+	componentDidMount() {
+		/*this.props.onRef(this);*/
+	},
+  	
+	componentWillUnmount() {
+		/*this.props.onRef(undefined);*/
+	},
+
+	btnsFadeCheck: function(action) {
+		/*if(action) this.setState({btnsAppear: action});
+		else {
+			if(this.state.content != index) this.setState({btnsAppear: 'fade-out'});
+			else this.setState({btnsAppear: ''});
+		}*/
+	},
+
+	btnBackClick: function() {
+		if(this.state.current == 'index') this.context.ftdChange('index');
+		else this.contentChanger('index');	
+	},
+
+	btnBasicInfoClick: function() {this.contentChanger('basicInfo'); },
+	btnPreferencesClick: function() {this.contentChanger('preferences'); },
+	btnRelationship: function() {this.contentChanger('relationship'); },
+	btnFlightRecordClick: function() {this.contentChanger('flight-record'); },
+	btnLuggageClick: function() {this.contentChanger('luggage'); },
+	btnRemarkClick: function() {this.contentChanger('remark'); },
+
 	contentFadeSwitch: function() {
-		
 		if(this.state.contentFade == 'fade-out') this.setState({contentFade: ''});
 		else this.setState({contentFade: 'fade-out'});
 	},
 
 	render() {
 
+		var trip = this.props.trip,
+			passenger = this.props.passenger;
+		
+		var current = this.state.current,
+			content;
+
+		switch(current) {
+
+			case 'index':
+				content = <Index trip={trip.leg_list[this.props.legNum]} passenger={passenger}></Index>;
+				break;
+
+			case 'basicInfo':
+				content = <BasicInfo passenger={passenger} updateCallback={'func'}></BasicInfo>;
+				break;
+
+			case 'preferences':
+				content = <Preferences passenger={passenger}></Preferences>;
+				break;
+
+			case 'relationship':
+				content = <Relationship passenger={passenger}></Relationship>;
+				break;
+
+			case 'flight-record':
+				content = <FlightRecord passenger={passenger}></FlightRecord>;
+				break;
+
+			case 'luggage':
+				alert('功能即將開放');
+				break;
+
+			case 'remark':
+				content = <Remark passenger={passenger}></Remark>;
+				break;
+		}
+
+
+
+
 		return (
 			<div>
-
-
 				{/*
 				 * [buttons]
 				 * @[back], @[basic], @[preferences], @[relationship], @[flightRecord], @[luggage], @[remark]
 				 */}
+				
+				{/* [ 返回按鈕 ] */}
 				<BtnCircle style={btn_back_pos} 
 						   touchCallback={this.btnBackClick} 
 						   color="red" 
-						   btnType="icon-arrow-left"></BtnCircle>				
+						   btnType="icon-arrow-left"></BtnCircle>
 
+				{/* [ 編輯按鈕 ] */}
+				<BtnCircle style={btn_edit_pos} 
+						   touchCallback={this.btnBackClick} 
+						   color="red" 
+						   btnType="icon-edit"></BtnCircle>
+
+				{/* [ 切換內容 ] */}
 				<div className={"btns-wrap " + this.state.btnsAppear}>
 
 					<BtnCircle style={btn_basicInfo_pos}
@@ -164,8 +213,7 @@ export default React.createClass({
 				  */}
 				 
 				 <div className="ftd-p-title">
-				 	<Title mode="info" step="relationship"></Title>
-				 	
+				 	<Title mode="info" data={this.props.passenger}></Title>
 				 </div>
 
 
@@ -189,7 +237,7 @@ export default React.createClass({
 				  * */}
 
 				  <div className={"ftd-p-content " + this.state.contentFade}>
-				  	{this.state.content}
+				  	{content}
 				  </div>
 
 

@@ -1,24 +1,16 @@
+/* [lib] */
 import React from 'react'
 
+/* [comp] */
+import Title from './components/preview-title'
 import BtnCircle from '../../components/btn-circle-red'
-import PassengerBlock from './passenger-form-block-0'
-import BtnBT from '../../components/btn-bt'
+import FormBlock from './components/form-block-1'
 
-var inputFormat = [
-	{title: 'Food', placeholder: '素食', inputType: 'text'}, 
-	{title: 'Flight', placeholder: '靠窗', inputType: 'text'}, 
-	{title: 'Hotel', placeholder: '喜歡睡雙人床', inputType: 'text'}, 
-	{title: 'Transportation', placeholder: '騎腳踏車', inputType: 'text'}, 
-	{title: 'Entertainment', placeholder: '看報紙', inputType: 'text'}
-];
+var formFormat = [], 
+	hobbyList = [],
+	hobbyContent = [];
 
 export default React.createClass({
-
-	getInitialState() {
-		return {
-			title: 'passenger-preferences',
-		}	
-	},
 
 	componentDidMount() {
 		if(this.props.onRef) this.props.onRef(this);
@@ -34,25 +26,29 @@ export default React.createClass({
 
 	render() {
 
-		var inputList = [];
+		var hobby = this.props.passenger.hobby;
 		
-		for(var i in inputFormat) {
+		for(var i in hobby) {
 
-			inputList.push(
-				<li className="ps-block ud-l r-l"
-					key={"input-list-"+i}>
-					<PassengerBlock title={inputFormat[i].title} placeholder={inputFormat[i].placeholder} inputType={inputFormat[i].inputType}></PassengerBlock>
+			var h = hobby[i];
+
+			hobbyContent[i] = (
+				<li className="ps-block ud-l r-l"key={"input-list-"+i}>
+					<FormBlock title={h.HobbyTitle} content={h.Value}> </FormBlock>
 				</li>
 			);
 		}
 
 		return (
 
-			<form>
-				<ul>
-					{inputList}
-				</ul>
-			</form>
+			<div>
+				<form>
+					<ul>
+						<Title name='preferences' icon='icon-preferences-b-w' text='Preferences'></Title>
+						{hobbyContent}
+					</ul>
+				</form>
+			</div>
 		)
 	}
 })

@@ -109,67 +109,135 @@ ul.cl-list li.cl-title {
 }
 
 .cl-item {
-	overflow: hidden;
 
-	>div {
-		float: left;
-		padding-top: 30px;
-		padding-bottom: 30px;
-		// line-height: 55px;
-		min-height: 115px;
+	padding: 25px 20px 0;
+
+	p {
+		color: @gray-2;
 	}
+
+	.xs {
+		font-size: 20px;
+	}
+
+	.sm {
+		font-size: 22px;
+		line-height: 26px;
+	}
+
+	.lg {
+		font-size: 32px;
+		line-height: 40px;
+	}
+
+	.creator {
+		padding: 0 8px;
+		line-height: 70px;
+	}
+
+	.controler {
+		position: absolute;
+		right: 0; top: 0;
+		background-color: @gray-4;
+		transition: 0.6s;
+		transform: translate(15px, 0);
+		opacity: 0;
+
+		>div {
+			padding: 25px 0;
+		}
+	}
+}
+
+.check-block[edit="true"] .controler {
+	transform: translate(-15px, 0);
+	opacity: 1;
 }
 
 .cl-checkbox {
 	display: none;	
 }
 
-.cl-checkbox + label span {
-	display: inline-block;
-	margin: auto;
+.cl-checkbox + label {
+	display: block;
+	padding-right: 15px;
+	
+	.checkbox {
+		display: inline-block;
+		margin: 10px 0;
+		width: 50px; height: 50px;
+		vertical-align: middle;
+		background-position: center top;
+		background-image: url(/assets/common/icon/checkbox.png);	
+	}
+}
+
+.cl-checkbox:checked + label .checkbox {
+	background-position: center bottom;	
+}
+
+.cl-bottom {
+	float: right;
+	margin: 25px -25px 0;
+	height: 1px;
+	background-color: @gray-3;
+	opacity: 0;
+
+	&.line {
+		opacity: 0.4;
+	}
+}
+
+
+/*.cl-checkbox + label {
+	display: block;
+}
+
+.cl-checkbox + label div {
+	margin: 10px auto;
 	width: 50px; height: 50px;
 	vertical-align: middle;
 	background-position: center top;
 	background-image: url(/assets/common/icon/checkbox.png);
 }
 
-.cl-checkbox:checked + label span {
+.cl-checkbox:checked + label div {
 	background-position: center bottom;	
-}
+}*/
 
-.cl-item-check {
+/*.cl-item-check {
 	text-align: center;
 	width: 15%;
-}
+}*/
 
-.cl-item-by {
+/*.cl-item-by {
 	width: 20%;
 	line-height: 55px;
 	color: @task-edit-green;
-}
+}*/
 
-div.cl-item-content {
+/*.cl-item-content {
 	padding-top: 20px;
 	width: 65%;
 	font-size: 30px;
 	line-height: 36px;
 	color: @gray-2;
-}
+}*/
 
-.cl-item-time {
+/*.cl-item-time {
 	margin: 4px 0 5px;
 	font-size: 18px;
 	line-height: 18px;
 
-}
+}*/
 
-.cl-bottom-line {
+/*.cl-bottom-line {
 	float: right;
 	margin: 0;
 	width: 85%; height: 1px;
 	background-color: @gray-3;
 	opacity: 0.4;
-}
+}*/
 
 .cl-leg {
 	position: relative;

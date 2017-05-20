@@ -2,7 +2,7 @@
 
 .ftd-scroll {
 	position: relative;
-	height: 79vh;
+	height: 81.5vh;
 	overflow: hidden;
 }
 
@@ -18,18 +18,18 @@
 	.slick-dots {
 		position: absolute;
 		height: 20px;
-		top: 0;
+		transition: 0.4s @InOutExpo;
 
 		li {
 			width: 14px;
 		}
 
 		li.slick-active button:before {
-			color: black;
+			opacity: 1;
 		}
 
 		li button:before {
-			opacity: 1;
+			opacity: 0.3;
 			color: white;
 			font-size: 14px;
 		}
@@ -38,7 +38,7 @@
 
 .ftd-title-box {
 	overflow: hidden;
-	margin: 13px 0 4px;
+	margin: 10px 0 4px;
 	padding: 0 5px;
 }
 
@@ -63,10 +63,10 @@
 }
 
 .ftd-task-txt {
-	padding: 0 3px;
+	padding: 0 3px 10px;
 	font-size: 24px;
 	line-height: 30px;
-	color: #787878;
+	color: #353535;
 }
 
 .ftd-slick {
@@ -77,16 +77,6 @@
 	
 }
 
-
-
-
-
-
-
-
-
-
-
 .ftd-leg {
 	position: relative;
 	float: left;
@@ -95,13 +85,12 @@
 
 .ftd-leg .leg-box {
 	min-height: 50px;
-	// border: 1px solid #aaa;
 }
 
 .ftd-leg-wrap .leg-label {
 	
 	position: relative;
-	padding: 30px 55px 50px;
+	padding: 30px 65px 50px 40px;
 	box-shadow: 0 3px 15px rgba(0,0,0,0.6);
 	z-index: 10;
 
@@ -122,6 +111,7 @@
 		width: 50%;
 		padding: 15px 0;
 		text-align: center;
+		font-size: 25px;
 		color: white;
 
 		&:first-child {
@@ -130,12 +120,20 @@
 	}
 }
 
-.leg-info {
-	
+.leg-info {	
 	position: relative;
 	overflow: hidden;
 	padding: 12px 4px 0;
 	color: white;
+
+	>div.fw {
+		/*border: 1px solid white;*/
+
+		>div.hw {
+			&:first-child {padding-left: 5px; padding-right: 70px; }
+			&:last-child {padding-left: 70px; }
+		}
+	}
 
 	.leg-step {
 		float: left;
@@ -150,7 +148,7 @@
 		line-height: 26px;
 	}
 
-	.leg-step i {
+	.leg-code i {
 		display: inline-block;
 		background-repeat: no-repeat;
 		background-position: center bottom;
@@ -177,15 +175,16 @@
 		margin: 8px 0 10px;
 		font-size: 32px;
 		font-weight: 700;
-		line-height: 36px;
+		line-height: 38px;
 	}
 
 	.leg-txt-xs {
 		font-size: 20px;
 	}
 
-	.leg-tiem {
+	.leg-time {
 		white-space: nowrap;
+		font-weight: 700;
 
 		i.icon-clock {
 			display: inline-block;
@@ -199,9 +198,9 @@
 
 	.leg-serial {
 		position: absolute;
-		margin-left: -50px;
+		margin-left: -40px;
 		width: 80px;
-		left: 50%; top: 100px;
+		left: 50%; top: 80px;
 		font-size: 22px;
 		font-weight: 900;
 		text-align: center;
@@ -267,7 +266,7 @@
 	.hnt-content-box {
 		float: left;
 		width: 50%;
-		padding: 20px 17px;
+		padding: 20px 12px 20px 24px;
 
 		&:first-child {
 
@@ -282,7 +281,7 @@
 		}
 
 		.hnt-txt-md {
-			padding-left: 42px;
+			padding-left: 33px;
 			font-size: 25px;
 			font-weight: 700;
 			line-height: 34px;
@@ -290,21 +289,25 @@
 
 		.hnt-txt-sm {
 			position: relative;
-			margin: 5px 0;
-			padding-left: 42px;
-			font-style: 22px;
+			margin: 6px 0;
+			padding-left: 33px;
+			font-size: 20px;
 			font-weight: 700;
-			line-height: 32px;
+			line-height: 30px;
 
 			i {
 				position: absolute;
 				display: inline-block;
 				left: 0;
-				// margin: 0 8px 0 0;
-				width: 30px; height: 28px;
-				background-position: right center;
+				width: 18px; height: 26px;
+				background-position: right bottom;
+				background-size: contain;
 				background-repeat: no-repeat;
 
+				&.icon-airplain-landing-w-bl, 
+				&.icon-airplain-takeoff-w-bl {
+					width: 25px;
+				}
 				&.icon-airplain {background-image: url(/assets/common/icon/airplain-takeoff-xs-w.png); }
 				&.icon-handler {background-image: url(/assets/common/icon/people-xs-w.png); }
 				&.icon-phone {background-image: url(/assets/common/icon/phone-xs-w.png); }

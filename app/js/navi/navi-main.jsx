@@ -2,7 +2,7 @@ import React from 'react'
 import Footer from '../footer/footer-main'
 import $ from 'jquery'
 import 'jquery.cookie'
-import Variable from '../variable/variable'
+import gp from '../global/parameter'
 
 export default React.createClass({
 
@@ -16,8 +16,8 @@ export default React.createClass({
 	},
 
 	contextTypes: {
-		naviSwitch: React.PropTypes.func,
-		panelSwitch: React.PropTypes.func
+		navi: React.PropTypes.object,
+		panel: React.PropTypes.object,
 	},
 
 	componentDidMount() {
@@ -48,20 +48,28 @@ export default React.createClass({
 
 		var tar = $(e.target).attr('class');
 
-		console.log(tar);
-
-		if(this.props.panelChange_cb) {
-			if(tar == 'passenger') this.props.panelChange_cb(tar);
-			else if(tar == 'personal-information') this.logout();
+		if(tar == 'personal-information') this.logout();
+		else {
+			alert('功能即將開放');
+			return;	
 		}
+
+		/*if(tar == 'passenger') {
+			this.context.panel.switch('open');
+			this.context.panel.change(tar);
+		}
+		else if(tar == 'personal-information') this.logout();*/
 	},
 
 	logout: function() {
-		$.removeCookie(Variable.cookieName);
+		/*$.removeCookie(Variable.cookieName);*/
+
+		localStorage.removeItem(gp.localStoragKey);
+
 		alert('logout');
 		setTimeout(function() {
 			window.location.hash = 'login';
-		}, 500);
+		}, 50);
 	},
 
 	render() {
@@ -71,7 +79,7 @@ export default React.createClass({
 
 				{/* pannel 上半部 */}
 				<div className="navi-content-wrap navi-bg bg-main-airplain">
-					<div className="btn navi-close" onTouchStart={this.context.naviSwitch}>
+					<div className="btn navi-close" onTouchStart={this.naviSwitch}>
 						<div className="navi-close-icon icon-arrow-right"></div>
 					</div>
 				</div>

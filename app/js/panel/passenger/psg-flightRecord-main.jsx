@@ -12,12 +12,12 @@ export default React.createClass({
 
 	getInitialState() {
 
-		list = <List></List>;
+		list = <List trip={this.props.trip} passenger={this.props.passenger}></List>;
 		detail = <Detail></Detail>
 
 		return {
-			// content: list,
-			content: detail
+			content: list,
+			// content: detail
 		}
 	},
 

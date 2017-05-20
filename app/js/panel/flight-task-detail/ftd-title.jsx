@@ -1,25 +1,28 @@
+/* [lib] */
 import React from 'react'
-import TaskState from './components/task-state'
+
+/* [comp] */
+import State from '../../components/flight-record/fr-state'
 
 export default React.createClass({
 
 	render() {
 
+		var data = this.props.data
+
 		return (
 			<div className="panel-block panel-title padding-xs">
 
 				<div className="ftd-title-box">
-					<TaskState taskState={'main'}></TaskState>
+					<State status={data.Status} data={data.time_left}></State>
 				</div>
 
 				<div className="ftd-title-box">
-					<div className="ftd-task-number left">20170322TPENRT</div>
-					<div className="ftd-task-name left">土耳其之旅</div>
+					<div className="ftd-task-number left">{data.TripNo}</div>
+					<div className="ftd-task-name left">{data.TripName}</div>
 				</div>
 
-				<div className="ftd-title-box">
-					<div className="ftd-task-txt">一場知性之旅，讓大家體驗土耳其風情。一場知性之旅，讓大家體驗土耳其風情。一場知性之旅。</div>
-				</div>
+				<div className="ftd-task-txt">{data.Description}</div>
 
 			</div>
 		)

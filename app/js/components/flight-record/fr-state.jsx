@@ -1,54 +1,65 @@
 import React from 'react'
 
+import gp from '../../global/parameter'
+
+var timer = '';
+
 export default React.createClass({
 
 	getInitialState() {
-		return {
 
+		return {
+			time: this.props.data,
 		}
 	},
 
 	componentDidMount() {
-		
+		if(this.props.status == '1' || this.props.status == '2') {
+			/*timer = setInterval(() => { }, 1000);*/ }
+	},
+
+	componentWillUnmount() {
+		clearInterval(timer);	
 	},
 
 	render() {
 
-		if(this.props.taskState == 'complete') {
-			return (
-				<div className={'fr-state ' + this.props.taskState}>
-					<span className="fr-state-icon icon-tick"></span>
-					complete
-				</div>
-			)
+		var status = gp.statusParam[this.props.status],
+			icon = '',
+			text = '';
+
+		switch(status) {
+
+			case 'complete':
+				text = 'Complete';
+				icon = 'icon-tick';
+				break;
+
+			case 'flying':
+				text = 'Flying';
+				icon = 'icon-tick';
+				break;
+
+			case 'edit':
+				text = '案件編輯中';
+				icon = 'icon-edit';
+				break;
+
+			case 'main':
+				text = gp.getReciprocalTime(this.props.data).msg;
+				icon = 'icon-alert';
+				break;
+
+			case 'wait':
+				text = gp.getReciprocalTime(this.props.data).msg;
+				icon = 'display-no';
+				break;
 		}
-		else if(this.props.taskState == 'edit') {
-			return (
-				<div className={'fr-state ' + this.props.taskState}>
-					<span className="fr-state-icon icon-edit"></span>
-					案件編輯中
-				</div>
-			)
-		}
-		else if(this.props.taskState == 'main') {
-			return (
-				<div className={'fr-state ' + this.props.taskState}>
-					<span className="fr-state-icon icon-alert"></span>
-					after {this.props.time} 10 min
-				</div>
-			)
-		}
-		else if(this.props.taskState == 'wait') {
-			return (
-				<div className={'fr-state ' + this.props.taskState}>
-					after {this.props.time} 10 min
-				</div>
-			)
-		}
-		
-		else return (
-			<div className='fr-state'>
-				unknow state
+
+		return (
+			<div className={'task-state ' + status}>
+				<span className={"task-state-icon " + icon}></span>
+				<span>{text}</span>
 			</div>
 		)
 	}

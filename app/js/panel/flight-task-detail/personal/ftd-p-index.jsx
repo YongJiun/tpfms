@@ -1,20 +1,13 @@
 import React from 'react'
 
 import Seats from '../../../components/seats/seats-main'
+import PanelTitle from '../../panel-title'
+import PsgList from '../../passenger/psg-list'
 
 export default React.createClass({
 
-	getInitialState() {
-
-		console.log('ftd-p getInitialState');
-
-		return {
-
-		}	
-	},
-
 	componentWillMount() {
-		console.log('ftd-p willMount');		
+		
 	},
 
 	componentWillUnmount() {
@@ -24,10 +17,8 @@ export default React.createClass({
 	render() {
 
 		return (
-			<div className="ftd-index-wrap">
-				
-				<Seats format="0" seatsData={''}></Seats>			
-
+			<div className="ftd-index-wrap loading-content">
+				<Seats format="0" relationship="1" data={this.props.trip} seatCallback={this.seatCallback}></Seats>
 			</div>
 		)
 	}

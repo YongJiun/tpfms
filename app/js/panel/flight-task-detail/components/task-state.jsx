@@ -3,6 +3,7 @@ import React from 'react'
 export default React.createClass({
 
 	getInitialState() {
+
 		return {
 
 		}
@@ -14,34 +15,45 @@ export default React.createClass({
 
 	render() {
 
-		if(this.props.taskState == 'complete') {
+		var status = this.props.status,
+			data = this.props.data;
+
+		if(status == 'complete') {
 			return (
-				<div className={'task-state ' + this.props.taskState}>
+				<div className={'task-state ' + status}>
 					<span className="task-state-icon icon-tick"></span>
-					complete
+					Complete
 				</div>
 			)
 		}
-		else if(this.props.taskState == 'edit') {
+		else if(status == 'flying') {
 			return (
-				<div className={'task-state ' + this.props.taskState}>
+				<div className={'task-state ' + status}>
+					<span className="task-state-icon icon-tick"></span>
+					Flying
+				</div>
+			)
+		}
+		else if(status == 'edit') {
+			return (
+				<div className={'task-state ' + status}>
 					<span className="task-state-icon icon-edit"></span>
 					案件編輯中
 				</div>
 			)
 		}
-		else if(this.props.taskState == 'main') {
+		else if(status == 'main') {
 			return (
-				<div className={'task-state ' + this.props.taskState}>
+				<div className={'task-state ' + status}>
 					<span className="task-state-icon icon-alert"></span>
-					after {this.props.time} 10 min
+					{this.props.text}
 				</div>
 			)
 		}
-		else if(this.props.taskState == 'wait') {
+		else if(status == 'wait') {
 			return (
-				<div className={'task-state ' + this.props.taskState}>
-					after {this.props.time} 10 min
+				<div className={'task-state ' + status}>
+					{this.props.text}
 				</div>
 			)
 		}

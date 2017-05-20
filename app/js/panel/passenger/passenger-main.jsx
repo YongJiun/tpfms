@@ -47,17 +47,12 @@ const btn_gear_pos = {right: '-60px', bottom: '70px' };
 export default React.createClass({
 
 	getInitialState() {
-		return {
-			mode: '',
-			current: 'default'
-			// current: 'passenger-detail'
-			// current: 'add-preferences'
-		}	
+		return {mode: '', current: 'default'} 
 	},
 
 	contextTypes: {
 		user: React.PropTypes.object,
-		panelState: React.PropTypes.object
+		panel: React.PropTypes.object,
 	},
 
 	getPassengerData: function() {
@@ -79,7 +74,7 @@ export default React.createClass({
 
 	btnBackClick: function() {
 		
-		if(this.state.current == 'default' && this.props.panelSwitch) this.props.panelSwitch();
+		if(this.state.current == 'default') this.context.panel.switch('close');
 		else {
 			var s = '';
 			switch(this.state.current) {

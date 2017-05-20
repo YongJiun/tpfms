@@ -1,18 +1,18 @@
+/* [library] */
 import React from 'react'
 import Footer from '../../footer/footer-main'
 import { Router, Route } from 'react-router'
-
-import Variable from '../../variable/variable'
-
 import $ from 'jquery'
-import 'jquery.cookie'
 
-var cookieName = Variable.cookieName;
+/* [parameter] */
+import gp from '../../global/parameter'
+
+/*var cookieName = Variable.cookieName;*/
 
 export default React.createClass({
 
 	contextTypes: {
-		router: React.PropTypes.object.isRequired
+		loginUpdate: React.PropTypes.func,
 	},
 
 	getInitialState() {
@@ -20,7 +20,8 @@ export default React.createClass({
 			loginFade: 'fade-out', 
 			passwordType: 'password',
 			account: 'admin',
-			password: 'password'
+			password: 'admin',
+			loading: 'false',
 		}
 	},
 
@@ -41,55 +42,53 @@ export default React.createClass({
 	},
 
 	login: function(e) {
+
+		console.log('login');
 		
 		e.preventDefault();
+		this.setState({loading: 'loading' });
 
-		var self = this;
+		var loginValue = {},
+			storageValue = {};
 		
 		if(this.state.account != "" && this.state.password != "") {
-			
-			var cookieValue = {
-				account: this.state.account,
-				password: this.state.password
+
+			var loginValue = {
+				'Account': this.state.account,
+				'Password': this.state.password
 			};
-
-			if(typeof cookieValue === 'object') {
-				var v = JSON.stringify(cookieValue);
-				$.cookie(cookieName, v, {expires: 7 });
-			}
 			
-			this.loginFadeOut();
+			/* 登入 */
+			$.ajax({
+				url: gp.api_url + 'auth/login',
+				type: 'POST',
+				dataType: 'JSON',
+				data: loginValue,
+			})
+			.done((response) => {
 
-			if(self.props.unMount_cb) self.props.unMount_cb();
+				console.log('login callback');
 
-			setTimeout(function() {
-				window.location.hash = '/';
-			}, 800);
-		}
+				if(response.status_code != 0) return;
 
-
-		return;
-
-		/*var self = this;
-
- 		$.ajax({
- 			url: api_url + 'auth/login',
- 			type: 'POST',
- 			dataType: 'json',
- 			data: {
- 				Account: "admin",
-				Password: "admin"
- 			},
- 		})
- 		.done(function(response) {
-
-			if (response.status_code == 0) {
+				/* Token存入localStorage */
+				storageValue.Token = response.data.user_info.Token;
+				localStorage.setItem(gp.localStoragKey, JSON.stringify(storageValue));
 				
-				console.log('');
-			}
- 			else alert('status_code: ' + response.status_code);
- 		})
- 		.fail(function(response) {console.log("error", response); });*/
+				/* 將Token更新至store */
+				this.context.loginUpdate(response.data.user_info);
+				this.loginFadeOut();
+
+				if(this.props.unMount_cb) this.props.unMount_cb();
+				
+				setTimeout(() => {
+					window.location.hash = '/';
+				}, 400);
+			})
+			.fail((response) => {
+				console.log("error", response);
+			});
+		}
 	},
 
 	loginFadeIn: function() {
@@ -113,20 +112,22 @@ export default React.createClass({
 				<div className="login-content">
 
 					<div className="login-block">
-						<p className="md">brand</p>
+						<p className="md">TPFMS</p>
 						<p className="lg">LOGIN</p>
 					</div>
 
-					<div className="login-block">
-						<form onSubmit={this.login}>
-							<input name="account" value={this.state.account} onChange={this.handleInputChange} className="icon-login-account" placeholder="account" type="text" />	
-							<input name="password" value={this.state.password} onChange={this.handleInputChange} className="icon-login-password" placeholder="password" type={this.state.passwordType} />
-							<div onTouchStart={this.passwordSwitch} className="btn-pwd-eye"></div>
+					<div is class="login-block comp-loading" status={this.state.loading}>
+						<div>
+							<form onSubmit={this.login}>
+								<input name="account" value={this.state.account} onChange={this.handleInputChange} className="icon-login-account" placeholder="account" type="text" />	
+								<input name="password" value={this.state.password} onChange={this.handleInputChange} className="icon-login-password" placeholder="password" type={this.state.passwordType} />
+								<div onTouchStart={this.passwordSwitch} className="btn-pwd-eye"></div>
 
-							<p onTouchStart={this.forgotPassword} className="text-right">Forgot password?</p>
+								<p onTouchStart={this.forgotPassword} className="text-right">Forgot password?</p>
 
-							<input id="btn-login" className="btn btn-line red" type="submit" value=""/>
-						</form>
+								<input id="btn-login" className="btn btn-line red" type="submit" value=""/>
+							</form>
+						</div>
 					</div>
 
 					<Footer></Footer>

@@ -1,0 +1,53 @@
+@import 'variable.less';
+
+.cm-list-scroll {
+	position: relative;
+	height: 84vh;
+	overflow: hidden;
+}
+
+.cm-li {
+	position: relative;
+
+	&.ud-l:after {
+		position: absolute;
+		display: inline-block;
+		content: '';
+		left: 0; bottom: 0;
+		width: 94.2%; height: 1px;
+		border-top: 1px solid @gray-3;
+		border-bottom: 1px solid white;
+	}
+}
+
+.cm-list-item {
+
+	&.item-0 {	
+		padding: 25px 0;
+	}
+	
+	.cm-portrait {
+		padding: 15px 10px 15px 57px;
+
+		.portrait {
+			width: 75px; height: 75px;
+			background-color: #b0b0b0;
+			border: 2px solid white;
+			border-radius: 40px;
+		}
+	}
+
+	.cm-info {
+		padding: 0 50px 0 10px;
+	}
+
+	.cm-list-txt {
+
+		color: @gray-7;
+
+		&.sm {
+			font-size: 24px;
+			line-height: 32px;
+		}
+	}
+}

@@ -1,18 +1,69 @@
+/* [library] */
 import React from 'react'
-import BtnCircle from '../components/btn-circle-red'
-import CheckList from './panel-checkList'
+
+/* [components] */
+import gp from '../global/parameter'
+import CheckList from './check-list/cl-main'
 import Passenger from './passenger/passenger-main'
 import FlightTaskDetail from './flight-task-detail/ftd-main'
-
-const btn_back_pos = {
-	right: '-60px',
-	top: '12px',
-};
-
+import CrewMember from './crew-member/cm-main'
 
 var ftd, psg, cl;
 
+
+var checkList = '';
+
 export default React.createClass({
+
+	contextTypes: {
+		Token: React.PropTypes.string,
+		panel: React.PropTypes.object,
+	},
+
+	getInitialState() {
+
+		var ps, pd, co;
+
+		if(gp.testPanel) {
+			ps = 'open';
+			pd = '';
+			co = 'flight-task-detail';
+		}
+		else {
+			ps = 'close';
+			pd = 'disappear';
+			co = 'index';
+		}
+		
+		return {
+			panelDeep: '',
+			loading: '',
+			panelState: ps,
+			panelDisappear: pd,
+			content: co,
+		}	
+	},
+
+	componentDidMount() {
+		this.props.onRef(this);
+	},
+  	
+	componentWillUnmount() {
+		this.props.onRef(undefined);
+	},
+
+	loadingSwitch: function(action) {
+
+		if(action) {
+			if(action == this.state.loading) return;
+			else this.setState({loading: action });
+		}
+		else {
+			if(this.state.loading == '') this.setState({loading: 'loading' });
+			else this.setState({loading: '' });
+
+		}
+	},
 
 	panelSwitch: function(action) {
 
@@ -43,91 +94,54 @@ export default React.createClass({
 		});
 	},
 
-	getInitialState() {
+	changeContent: function(content, parameter) {
 
-		cl  = <CheckList panelSwitch={this.panelSwitch} taskState="main"></CheckList>;
-		psg = <Passenger panelSwitch={this.panelSwitch}></Passenger>;
-		ftd = <FlightTaskDetail panelChange={this.changeContent} panelSwitch={this.panelSwitch}></FlightTaskDetail>;
+		/* 若panel為打開的狀態，須先進入loading，再變換content */
+		/* 若panel為關閉的，則直接改變content */
 		
-		return {
-			panelState: 'open',
-			panelDisappear: '',
-			panelDeep: '',
-			section: 'flight-task-detail',
-			content: ftd,
-			contentFade: '',
+		if(gp.debug) console.log('changeContent');
+		this.setState({loading: 'loading' });
 
-			/*panelState: 'open',
-			panelDisappear: '',
-			content: <Passenger panelSwitch={this.panelSwitch}></Passenger>,*/
-			
-			/*panelState: 'close',
-			panelDisappear: 'disappear',
-			content: <CheckList taskState="main"></CheckList>,*/
-		}	
-	},
-
-	componentDidMount() {
-		this.props.onRef(this);
-	},
-  	
-	componentWillUnmount() {
-		this.props.onRef(undefined);
-	},
-
-	toDeep: function() {
-		if(this.state.panelDeep == 'deep') this.setState({panelDeep: '' });
-		else this.setState({panelDeep: 'deep' });
+		if(content == 'flight-task-detail') this.setState({parameter: parameter });		
 		
-	},
-
-	changeContent: function(tar) {
-
-		if(this.state.panelState == 'open') {
-			
-			this.setState({contentFade: 'fade-out' });	
-
-			setTimeout(() => {
-				this.changeControler(tar)
-				this.setState({contentFade: '' });
-			}, 600);
+		if(this.state.panelState == 'open') setTimeout(() => {this.setState({content: content }); }, 400);
+		else {
+			this.setState({content: content });
+			this.panelSwitch('open');
 		}
-		else this.changeControler(tar);
-		
-	},
 
-	naviSwitch_cb: function() {
-		if(this.props.naviClick) this.props.naviClick();
-	},
-
-	changeControler: function(tar) {
-
-		switch(tar) {
-			case 'checkList':
-				this.setState({content: <CheckList taskState="main" panelSwitch={this.panelSwitch}></CheckList> });
-				break;
-			case 'passenger':
-				this.setState({content: <Passenger panelSwitch={this.panelSwitch}></Passenger> });
-				break;
-			case 'flight-task-detail':
-				this.setState({content: <FlightTaskDetail panelChange={this.changeContent} panelSwitch={this.panelSwitch}></FlightTaskDetail> });
-				break;
-		}
+		setTimeout(() => {
+			this.setState({loading: ' ' });
+		}, 600);
 	},
 
 	render() {
+
+		var content;
+
+		switch(this.state.content) {
+			case 'check-list':
+				content = <CheckList data={this.props.checkListData} taskState="main"></CheckList>;
+				break;
+			case 'passenger':
+				content = <Passenger></Passenger>;
+				break;
+			case 'flight-task-detail':
+				content = <FlightTaskDetail tripNo={this.state.parameter}></FlightTaskDetail>;
+				break;
+		}
 
 		return (
 			<div className={'panel-main-wrap ' + this.state.panelState + ' ' + this.state.panelDisappear + ' ' + this.state.panelDeep}>
 
 				<div className="panel-bg"></div>
 
-				<div id="panel-main">
-					<div className={this.state.contentFade}>
-						{this.state.content}
+				<div className={"panel-main comp-loading " + this.state.loading}>
+					<div className={"panel-content"}>
+						{content}
 					</div>
 				</div>
-
+				
 			</div>
 		)
 	}

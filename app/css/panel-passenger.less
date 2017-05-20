@@ -78,10 +78,35 @@
 	font-weight: 500;
 }
 
-/*.ps-block.title {
-	background-color: @gray-8;
-	color: white;	
-}*/
+.ps-block.slick-block {
+	position: relative;
+	margin: 25px 67px 25px 37px;
+	width: 467px;
+	min-height: 20px;
+
+	ul.slick-dots {
+		bottom: 50px;
+		z-index: 1000;
+	}
+}
+
+.ps-block.slick-block .slick-content {
+	position: relative;
+	float: left;
+	width: 100%;
+	min-height: 200px;
+
+	p {
+		margin: 10px 0;
+		font-size: 24px;
+		font-weight: normal;
+		letter-spacing: 1px;
+
+		span:first-child {
+			margin: 0 20px 0 3px;
+		}
+	}
+}
 
 .ps-search {
 	padding: 0 30px 0 100px;
@@ -295,7 +320,7 @@
 	padding: 18px 20px 18px 40px;
 }
 
-.ps-form-title.full-width {
+.ps-form-title.full-width, .ps-form-title.fw {
 	width: 100%;
 	background-color: @gray-8;
 	color: white;
@@ -303,6 +328,8 @@
 	&.visa:before {
 		width: 50px;
 	}
+
+	&.icon-no:before {display: none; }
 
 	&:before {
 		content: '';
@@ -341,7 +368,35 @@
 	}
 }
 
-/*.passenger-personal-detail.tmp-fade-out {
-	transition: 0.5s @InOutExpo;
-	margin-left: -@panelW;
-}*/
+
+
+
+
+.remark-block {
+	padding: 30px 65px; 
+
+	>div {
+
+	}
+
+	>div:first-child {
+		padding-right: 15px;
+		width: 70%;
+	}
+
+	>div:last-child {
+		padding-left: 15px;
+		width: 30%;
+	}
+
+
+	.rk-txt {
+		color: 515151;
+		font-weight: 300;
+
+		&.xs {font-size: 23px; line-height: 28px; }
+		&.lg {font-size: 33px; line-height: 52px; }
+		&.md {margin-top: 2px; font-size: 25px; line-height: 32px; }
+		&.c-red-0 {margin-top: 5px; }
+	}
+}

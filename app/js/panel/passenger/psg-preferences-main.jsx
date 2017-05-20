@@ -13,8 +13,8 @@ export default React.createClass({
 
 	getInitialState() {
 
-		preview = <PreferencesPreview onRef={ref => (this.psgPreferences = ref)}></PreferencesPreview>;
-		form 	= <PreferencesForm onRef={ref => (this.psgPreferences = ref)}></PreferencesForm>;
+		preview = <PreferencesPreview passenger={this.props.passenger} onRef={ref => (this.psgPreferences = ref)}></PreferencesPreview>;
+		form 	= <PreferencesForm passenger={this.props.passenger} onRef={ref => (this.psgPreferences = ref)}></PreferencesForm>;
 
 		return {
 			content: preview,

@@ -35,20 +35,26 @@
 	transition: 0.6s @InOutExpo;
 }
 
-#panel-main {
+.panel-main {
 	position: absolute;
-	left: 0; top: 5vh;
+	left: 0; 
+	bottom: 0;
 	width: @panelW; height: @panelH;
 	background-color: @gray-4;
 	border-top-right-radius: 15px;
-	
+}
 
-	>div {
-		opacity: 1;
-		transition: 0.5s;	
-	}
+.panel-main.loading .panel-content, .panel-main.loading .loading-content {
+	transition: 0.3s;
+	opacity: 0;
+}
 
-	>div.fade-out {
+.panel-content {
+	position: relative;
+	opacity: 1;
+	transition: 0.5s;
+
+	&.fade-out {
 		opacity: 0;
 	}
 }
@@ -69,7 +75,6 @@
 
 .panel-block {
 	width: 100%;
-	// min-height: 100px;
 	overflow: hidden;
 
 	&:before {
@@ -91,6 +96,7 @@
 	position: relative;
 	border-bottom: 4px solid @dark-red;
 	box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+	z-index: 100;
 
 	&.padding-md {
 		padding: 35px;	
@@ -106,6 +112,10 @@
 	}
 }
 
+.crew-member.panel-title .p-portrait-block {
+	margin: 21px 20px 0 0;
+}
+
 .panel-title {
 	
 	.p-portrait-block {
@@ -119,7 +129,8 @@
 
 		.p-portrait {
 			width: 75px; height: 75px;
-			background-image: url(/assets/account/p-portrait.jpg);
+			/* portriat detail photo */
+			/*background-image: url(/assets/account/p-portrait.jpg);*/
 			background-repeat: no-repeat;
 			background-position: center center;
 			background-size: cover;
@@ -132,7 +143,11 @@
 		color: #515151;
 
 		span.gap {
-			margin: 0 10px;
+			margin: 0 15px;
+		}
+
+		span.gap-r {
+			margin: 0 15px 0 0;
 		}
 	}
 }
@@ -140,16 +155,17 @@
 .panel-title-icon {
 	margin-right: 15px;
 	width: 50px; height: 50px;
-	background-position: center center;
+	background-repeat: no-repeat;
+	background-position: right center;
 }
 
 .panel-title-text {
 	color: @gray-2;
 
 	&.lg {
-		font-size: 36px;
-		font-weight: 500;
-		line-height: 44px;
+		font-size: 37px;
+		font-weight: 700;
+		line-height: 42px;
 	}
 
 	&.xs {
@@ -157,3 +173,214 @@
 		line-height: 32px;
 	}
 }
+
+.panel-loading {
+	position: absolute;
+	left: -1px; top: -1px;
+	width: 100.5%; height: 100.5%;
+	background-color: #ccc;
+	background-size: 50px auto;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: url(/assets/common/loading.gif);
+	border-top-right-radius: 20px;
+	z-index: 10000;
+	transition: 0.3s;
+	opacity: 0;
+
+	&.fade-in {
+		opacity: 1;
+	}
+
+	&.in {
+		transition: 0s;
+		opacity: 1;
+	}
+
+}
+
+.panel-search {
+	padding: 0 30px 0 100px;
+	margin: 40px 20px 15px 0;
+	width: 460px; height: 56px;
+	background-color: @gray-5;
+	border-radius: 30px;
+	font-size: 22px;
+	font-weight: 500;
+	letter-spacing: 1px;
+	color: @gray-6;
+	
+	background-position: 45px center;
+	background-size: 40px auto;
+	background-repeat: no-repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* [basic form, detail form] */
+
+.panel-form-scroller {
+	position: relative;
+	overflow: hidden;
+	height: 81vh;
+}
+
+.panel-t-h {
+	height: 130px;
+}
+
+.panel-c-h-title {
+	height: @panelH;
+}
+
+.panel-c-h-noTitle {
+	height: 81vh;
+}
+
+.panel-form {
+	font-size: 24px;
+	font-weight: 500;
+}
+
+.panel-padding-title {
+	padding-top: 158px;
+}
+
+.panel-form > ul{
+	padding-bottom: 60px;
+}
+
+.panel-form > ul li.ud-l {
+	&:after {
+		position: absolute;
+		display: inline-block;
+		content: '';
+		left: 0; bottom: 0;
+		width: 94.2%; height: 1px;
+		border-top: 1px solid @gray-3;
+		border-bottom: 1px solid white;
+	}
+}
+
+.panel-form {
+
+	.category-title {
+		color: white;
+		background-color: @gray-8;
+
+		&.visa:before {
+			width: 50px;
+		}
+
+		&.icon-no:before {display: none; }
+
+		&:before {
+			content: '';
+			margin-right: 5px;
+			display: inline-block;
+			width: 30px; height: 24px;
+			background-size: auto 100%;
+			background-position: left bottom;
+			background-repeat: no-repeat;
+		}
+	}
+	
+	.category-title,
+	.category-content {
+		padding: 18px 20px 18px 40px;
+		width: 100%;	
+		min-height: 72px;
+		line-height: 36px;
+		font-size: 24px;
+
+		input, span {
+			color: @gray-2;
+			font-size: 24px;
+			line-height: 36px;
+		}
+	}
+
+	.category-content {
+		.content-l,
+		.content-r {
+			
+		}
+
+		.content-l {color: @gray-10; }
+		.content-r {color: @gray-2; }
+	}
+}
+
+.panel-form .slick-block {
+	
+	position: relative;
+	margin: 25px 67px 25px 37px;
+	width: 467px;
+	min-height: 20px;
+
+	.slick-tranck {
+		z-index: 1;
+	}
+
+	ul.slick-dots {
+		bottom: 50px;
+		z-index: 100000;
+	}
+	
+	.slick-content {
+		position: relative;
+		float: left;
+		width: 100%;
+		min-height: 200px;
+
+		p {
+			margin: 10px 0;
+			font-size: 24px;
+			font-weight: normal;
+			letter-spacing: 1px;
+
+			span:first-child {
+				margin: 0 20px 0 3px;
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

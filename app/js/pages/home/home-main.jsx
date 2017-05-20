@@ -2,66 +2,67 @@
 import React from 'react'
 import $ from 'jquery'
 
+/* [parameter] */
+import gp from '../../global/parameter'
+
 /* [components] */
 import HomeTask from './home-task'
 import Header from '../../header/header-main'
 import Panel from '../../panel/panel-main'
 import Navi from '../../navi/navi-main'
 
-
-var api_url = 'http://flight.faw-ogilvy.com/api/';
 var deep = false;
+var homeTask = '';
+var apiCalling = false;
 
 export default React.createClass({
 
 	childContextTypes: {
-		naviSwitch: React.PropTypes.func,
-		panelSwitch: React.PropTypes.func
+		navi: React.PropTypes.object,
+		panel: React.PropTypes.object,
 	},
 
 	contextTypes: {
+		Token: React.PropTypes.string,
 		user: React.PropTypes.object,
-		testValue: React.PropTypes.string,
+		userDetail: React.PropTypes.object,
 	},
 
 	getChildContext: function() {
 		return {
-			naviSwitch: this.naviSwitch,
-			panelSwitch: this.panelSwitch
+			navi: {
+				'switch': this.naviSwitch,
+			},
+			panel: {
+				'switch': this.panelSwitch,
+				'change': this.panelChange,
+				'loading': this.panelLoading,
+			}
 		}
 	},
 
 	getInitialState() {
-		
-		console.log('user:', window.user);
-
 		return {
-			v: this.context.testValue
-		};	
+			trips: [],
+		};
 	},
 
 	componentWillMount() {
-		console.log('home-main willmount: ', this.context);
+
+	},
+
+	componentWillUpdate(nextProps, nextState) {
+		setTimeout(() => {
+			if(this.context.user.APId && this.state.trips.length == 0 && !apiCalling) this.api_getTripById();
+		}, 0)
 	},
 
 	componentDidMount() {
-		/*console.log(this.context.testValue);
-		this.context.testValue = 'new testValue';
-		console.log(this.context.user);*/
 		if(this.props.didMount_cb) this.props.didMount_cb('home-main mount');
 	},
-
-	/*componentWillUpdate(nextProps, nextState) {
-		console.log('home-main update: ', this.context.user);	
-	},*/
 	
 	naviSwitch: function() {
 		this.childNavi.naviSwitch();
-		/*if(!deep) {deep = true; this.childPanel.toDeep(); } else { deep = false; setTimeout(this.childPanel.toDeep, 500) }*/
-	},
-
-	panelSwitch: function() {
-		this.childPanel.panelSwitch();
 	},
 
 	checkList: function() {
@@ -69,53 +70,71 @@ export default React.createClass({
         this.childPanel.panelSwitch();
     },
 
-    panelChange: function(tar) {
-    	this.childPanel.panelSwitch();
-    	this.childPanel.changeContent(tar);
+
+
+
+    /* ======================================================================== */
+    /* =============================== panel ================================== */
+    /* ======================================================================== */
+
+    panelChange: function(tar, parameter) {
+    	this.childPanel.changeContent(tar, parameter);
     },
 
-    taskClick: function(num) {
-    	this.childPanel.panelSwitch();
-    	this.childPanel.changeContent('flight-task-detail', num);
+    panelLoading: function(action) {
+    	this.childPanel.loadingSwitch(action);
     },
+
+    panelSwitch: function(action, content, parameter) {
+		if(action) this.childPanel.panelSwitch(action);
+		else this.childPanel.panelSwitch();
+	},
+
+    api_getTripById: function() {
+
+    	if(gp.debug) console.log('api_getTripById');
+
+    	if(apiCalling) return;
+    	else apiCalling = true;
+
+		if(gp.localAPI) {
+			var trips = gp.getTripById.data.trip_info;
+			this.setState({trips: trips });
+			return;	
+		}
+
+		$.ajax({
+			url: gp.api_url + 'case/getTripByIdTest/' + this.context.user.APId,
+			type: 'GET', dataType: 'JSON',
+			headers: {"Content-Type": "application/json", "Authorization": "Bearer " + this.context.Token, },
+		})
+		.done((response) => {
+
+			if(gp.debug) console.log('api_getTripById callback');
+
+			if(response.status_code != 0) return;
+			this.setState({trips: response.data.trip_info });
+		})
+		.fail((response) => {
+			console.log("error", response);
+		});
+		
+	},
 
 	render() {
 
 		return (
-			<div className="full-height">
+			<div className="fh">
 
 				<Header checkList_cb={this.checkList} panelChange_cb={this.panelChange}></Header>
 
-				<HomeTask click_cb={this.taskClick}></HomeTask>
+				<HomeTask trips={this.state.trips}></HomeTask>;
 
-				<Navi panelChange_cb={this.panelChange}  onRef={ref => (this.childNavi = ref)}></Navi>
+				<Navi panelChange_cb={this.panelChange} onRef={ref => (this.childNavi = ref)}></Navi>
 
-				<Panel naviSwitch_cb={this.naviSwitch} onRef={ref => (this.childPanel = ref)}></Panel>
+				<Panel checkListData={this.context.userDetail} onRef={ref => (this.childPanel = ref)}></Panel>
+
 			</div>
 		)
 	}
 })
-
-var inputFormat = [
-	{title: 'PassengerNo.', placeholder: '001', inputType: 'num'}, 
-	{title: 'Traveller/Owner', placeholder: 'Owner', inputType: 'text'}, 
-	{title: 'Title', placeholder: '王董', inputType: 'text'}, 
-	{title: 'Birthday', placeholder: '1900/01/01', inputType: 'text'}, 
-	{title: 'Height/Weight', placeholder: '180cm / 75kg', inputType: 'text'}, 
-	{title: 'Phone', placeholder: '0912123123', inputType: 'tel'}, 
-	{title: 'Email', placeholder: 'wang@gmail.com', inputType: 'email'}, 
-	{title: 'Line ID', placeholder: 'Wangmin', inputType: 'text'}, 
-	
-	{title: 'Passport'}, 
-	{title: 'VISA'},
-
-	{title: 'Secretary Contact'}, 
-	{title: 'Secretary', placeholder: '陳美惠', inputType: 'tel' }, 
-	{title: 'Phone', placeholder: '0912123123', inputType: 'tel' }, 
-	{title: 'Email', placeholder: 'chen@gmail.com', inputType: 'email' }, 
-	
-	{title: 'Emergency Contact'},
-	{title: 'name', placeholder: '陳美惠', inputType: 'text' },
-	{title: 'Relationship', placeholder: 'Mother', inputType: 'text'},
-	{title: 'Flight Record'},
-];

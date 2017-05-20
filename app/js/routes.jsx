@@ -1,13 +1,15 @@
+/* [library] */
 import React from 'react'
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 
+/* [components] */
 import App from './app'
-import About from './pages/about/about-main'
+import Home from './pages/home/home-main'
+import Login from './pages/account/login'
+
+/* [test] */
 import Repos from './pages/repos/repos-main'
 import Repo from './pages/repos/repo'
-import Home from './pages/home/home-main'
-
-import Login from './pages/account/login'
 
 module.exports = (
 	<Router history={hashHistory}>

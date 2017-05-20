@@ -2,76 +2,98 @@ import React from 'react'
 
 export default React.createClass({
 
-
-	getInitialState() {
-		return {
-			color: 'red'
-		}	
+	contextTypes: {
+		ftdChange: React.PropTypes.func,
+		seatCallback: React.PropTypes.func,
 	},
 
-	seatAdd: function() {
-		/*console.log('click seatAdd');
-		this.setState({
-			color: 'blue'
-		});*/
+	personal_add: function() {
+		this.context.seatCallback('add', this.props.num);
+	},
+
+	personal_info: function() {
+		this.context.ftdChange('personal-detail', {leg: this.props.legNum, passenger: this.props.personal.PassengerId});
 	},
 
 	render() {
+		
+		var personal = this.props.personal;
 
-		/* 新增乘客 */
-		if(this.props.personalInfo == '' || this.props.personalInfo == null) {
-			
-			return (
-				<div 
-					 className="seat"
-					 style={this.props.pos}>
-					
-					<div is
-						 key={'seat-'+this.props.num}
-						 num={this.props.num}
-						 onTouchStart={this.seatAdd}
-						 class="btn-seat-add"
-						 >
-					</div>
-				</div>
-			)
-		}
+		if(this.props.relationship == 0) {
 
-		else {
-
-			/* 乘客資訊 (含關係) */
-			if(this.props.personalInfo.relationship == 0) {
+			/* 新增乘客 */
+			if(!this.props.personal) {
 				return (
-					<div className="seat"
-						 style={this.props.pos}>
-						 <div className="fw ofh">
-						 	<div className="left p-portrait-block">
-						 		<div className="p-portrait"></div>
-						 	</div>
-						 	<div className="left p-info">
-						 		本人
-						 		<br/>
-						 		/ Sho Min Wang
-						 	</div>
-						 </div>
-						 <div className="fw ofh">
-						 	<div className="p-name">
-						 		Sho Min Wang
+					<div is
+						 class="seat add translucent-5"
+						 style={this.props.pos}
+						 leg-num={this.props.legNum}
+						 seat-num={this.props.num}
+						 passenger-id={''}
+						 onClick={this.personal_add}>
+
+						<div is
+							 key={'seat-'+this.props.num}
+							 num={this.props.num}>
+						</div>
+					</div>
+				)
+			}
+			
+			/* 乘客資訊 (無關係) */
+			else {
+				return (
+					<div is 
+						 class="seat name"
+						 style={this.props.pos}
+						 leg-num={this.props.legNum}
+						 seat-num={this.props.num}
+						 passenger-id={personal.PassengerId}
+						 onClick={this.personal_info}>
+						 <div>
+						 	<div className="p-name">{/*translucent*/}
+						 		{personal.NameCN}
 						 	</div>
 						 </div>
 					</div>
 				)
 			}
+		}
 
-			/* 乘客資訊 (無關係) */
-			else if(this.props.personalInfo.relationship == 1) {
+
+
+		
+
+
+		else {
+
+			if(!this.props.personal) {
+				return <div></div>;
+			}
+
+			
+			/* 乘客資訊 (含關係) */
+			else {
 				return (
-					<div className="seat"
-						 style={this.props.pos}>
-							
+					<div is
+						 class="seat relationship"
+						 style={this.props.pos}
+						 leg-num={this.props.legNum}
+						 seat-num={this.props.num}
+						 passenger-id={personal.PassengerId}>
 						 <div className="fw ofh">
-						 	<div className="p-name translucent">
-						 		Sho Min Wang ShhhShhhShhh
+						 	<div className="left p-portrait-block">
+						 		<div className="p-portrait"></div>
+						 	</div>
+						 	<div className="left p-info tl">
+						 		本人
+						 		<br/>
+						 		/ {personal.NameCN}
+						 	</div>
+						 </div>
+						 <div className="fw ofh">
+						 	<div className="p-name">
+						 		{personal.NameCN}
 						 	</div>
 						 </div>
 					</div>

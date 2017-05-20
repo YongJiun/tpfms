@@ -5,28 +5,15 @@ import $ from 'jquery'
 /* [compoenets] */
 import Seats from '../../components/seats/seats-main'
 
-
-var seats = [],
-	seatFormat_0 = [{
-		style_add: {'left': '155px', 'top': '110px', }, }, {
-		style_add: {'left': '430px', 'top': '110px', }, }, {
-		style_add: {'left': '155px', 'top': '288px', }, }, {
-		style_add: {'left': '430px', 'top': '288px', }, }, {
-		style_add: {'left': '155px', 'top': '487px', }, }, {
-		style_add: {'left': '155px', 'top': '585px', }, }, {
-		style_add: {'left': '155px', 'top': '680px', }, }, {
-		style_add: {'left': '430px', 'top': '487px', }, }, {
-		style_add: {'left': '430px', 'top': '640px', },}
-	];
-
 var hnt_h = 0;
-
+var iconFuel = <i className="icon-fuel"></i>;
 
 export default React.createClass({
 
 	getInitialState() {
 		return {
 			hntState: 'close',
+			timeFormat: 'L',
 		};
 	},
 
@@ -42,7 +29,7 @@ export default React.createClass({
 		setTimeout((e) => {
 			var height = $('.ftd-leg[num='+num+']').height();
 			$('.slick-list').height(height);
-			if(this.props.update_cb) this.props.update_cb('h');
+			if(this.props.updateCallback) this.props.updateCallback(num);
 		}, 500);
 	},
 
@@ -50,70 +37,85 @@ export default React.createClass({
 		console.log($(e.target).attr('num'));
 	},
 
+	timeSwitch: function() {
+		if(this.state.timeFormat == 'L') this.setState({timeFormat: 'Z' });
+		else this.setState({timeFormat: 'L' });
+	},
+
 	render() {
 
-		if(seats.length == 0) {
-			for(var i = 0; i < seatFormat_0.length; i++) {
-
-				seats[i] = (
-					<div is
-						 key={'seat-'+i}
-						 num={i}
-						 style={seatFormat_0[i].style_add} 
-						 onTouchStart={this.seatAdd}
-						 class="btn-seat-add">
-					</div>
-				)
-			}
-		}
+		var leg = this.props.data;
 
 		return (
-			<div is class="ftd-leg" num={this.props.num}>
+
+			<div is class="ftd-leg" leg-num={this.props.legNum}>
 				
 
-
-
-
-
-				{/*
-				 * LEG [top]
-				 */}
-				<div is class="leg-box leg-label main" num={this.props.num}>
+				{/* [LEG [top]] */}
+				<div is class="leg-box leg-label main" num={this.props.legNum}>
 					<div className="leg-spend-time">
-						<div>01hr 20min B</div>
-						<div>02hr 20min F</div>
+						<div>{leg.BlockTime}</div>
+						<div>{leg.FlightTime}</div>
 					</div>
+
+
 					<div className="leg-info">
-						<div className="leg-step">
-							<div className="leg-code leg-txt-sm fuel">
-								<i className="icon-airplain-takeoff-w-bl"></i>
-								RCTP
+
+						<div className="fw of-h">
+							<div className="hw left">
+								<div className="leg-code leg-txt-sm fuel">
+									<i className="icon-airplain-takeoff-w-bl"></i>
+									{leg.dep.DepICAO}
+									{leg.dep.DepFuelStop == "0" ? '' : iconFuel}
+								</div>
 							</div>
-							<div className="leg-txt-sm">台北 /</div>
-							<div className="leg-txt-lg">桃園國際<br/>機場</div>
-							<div className="leg-txt-xs leg-tiem">
-								<i className="icon-clock"></i>
-								03/20 23:30L
+							<div className="hw left">
+								<div className="leg-code leg-txt-sm">
+									<i className="icon-airplain-landing-w-bl"></i>
+									{leg.arr.ArrICAO}
+									{leg.arr.ArrFuelStop == "0" ? '' : iconFuel}
+								</div>
 							</div>
 						</div>
+
+
+						<div className="fw of-h">
+							<div className="hw left">
+								<div className="leg-txt-sm">{leg.dep.airport_detail[0].City} /</div>
+							</div>
+							<div className="hw left">
+								<div className="leg-txt-sm">{leg.arr.airport_detail[0].City} /</div>
+							</div>
+						</div>
+
+						<div className="fw of-h">
+							<div className="hw left">
+								<div className="leg-txt-lg">{leg.dep.airport_detail[0].NameCN}</div>
+							</div>
+							<div className="hw left">
+								<div className="leg-txt-lg">{leg.arr.airport_detail[0].NameCN}</div>
+							</div>
+						</div>
+
+						<div className="fw of-h" onTouchStart={this.timeSwitch}>
+							<div className="hw left">
+								<div className="leg-txt-xs leg-time">
+									<i className="icon-clock"></i>
+									{leg.dep['DepDateTime' + this.state.timeFormat]}
+								</div>
+							</div>
+							<div className="hw left">
+								<div className="leg-txt-xs leg-time">
+									<i className="icon-clock"></i>
+									{leg.arr['ArrDateTime' + this.state.timeFormat]}
+								</div>
+							</div>
+						</div>
+
 
 						<div className="leg-serial">
 							<i className="icon-leg-airplain"></i><br/>
-							LEG 01
-						</div>
-
-						<div className="leg-step">
-							<div className="leg-code leg-txt-sm">
-								<i className="icon-airplain-landing-w-bl"></i>
-								RTJJ
-								<i className="icon-fuel"></i>
-							</div>
-							<div className="leg-txt-sm icon-clock">東京 /</div>
-							<div className="leg-txt-lg">Narita International Airport</div>
-							<div className="leg-txt-xs leg-tiem">
-								<i className="icon-clock"></i>
-								03/20 23:30L
-							</div>
+							{"LEG " + (parseInt(this.props.legNum) + 1)}
 						</div>
 					</div>
 				</div>
@@ -123,66 +125,69 @@ export default React.createClass({
 
 
 
-				{/*
-				 * LEG [Handler & Transportation]
-				 */}
+				{/* [LEG [Handler & Transportation]] */}
 				<div className={"leg-box leg-hnt " + this.state.hntState}>
 					
-					<div is num={this.props.num} class="hnt-title" onClick={this.hntSwitch}> 
-						<span is num={this.props.num}>Handler & Transportation</span>
-						<div is num={this.props.num} class={"hnt-switcher " + this.state.hntState}></div>
+					<div is num={this.props.legNum} class="hnt-title" onClick={this.hntSwitch}> 
+						<span is num={this.props.legNum}>Handler & Transportation</span>
+						<div is num={this.props.legNum} class={"hnt-switcher " + this.state.hntState}></div>
 					</div>
 
 					<div className="hnt-content">
 
 						<div className="hnt-content-box">
-							<div className="hnt-txt-md">Dedivarture</div>
+							<div className="hnt-txt-md">Departure</div>
 							<div className="hnt-txt-sm">
-								<i className="icon-airplain"></i>
-								Eva Sky Jet Center
+								<i className="icon-airplain-takeoff-w-bl"></i>
+								{leg.dep.DepHandler}
+								{/*Eva Sky Jet Center*/}
 							</div>
 							<div className="hnt-txt-sm">
 								<i className="icon-handler"></i>
-								Kevin Chen
+								{leg.dep.DepReceptionist}
+								{/*Kevin Chen*/}
 							</div>
 							<div className="hnt-txt-sm">
 								<i className="icon-phone"></i>
-								8876-6543
+								{leg.dep.DepPhone}
+								{/*8876-6543*/}
 							</div>
 							<div className="hnt-txt-sm">
 								<i className="icon-car"></i>
-								在台北車站集合，一起搭車前往機場。
+								{leg.dep.DepTransportation}
+								{/*在台北車站集合，一起搭車前往機場。*/}
 							</div>
 						</div>
 
 						<div className="hnt-content-box">
 							<div className="hnt-txt-md">Arrival</div>
 							<div className="hnt-txt-sm">
-								<i className="icon-airplain"></i>
-								Eva Sky Jet Center
+								<i className="icon-airplain-landing-w-bl"></i>
+								{leg.arr.ArrHandler}
+								{/*Eva Sky Jet Center*/}
 							</div>
 							<div className="hnt-txt-sm">
 								<i className="icon-handler"></i>
-								Kevin Chen
+								{leg.arr.ArrReceptionist}
+								{/*Kevin Chen*/}
 							</div>
 							<div className="hnt-txt-sm">
 								<i className="icon-phone"></i>
-								8876-6543
+								{leg.arr.ArrPhone}
+								{/*8876-6543*/}
 							</div>
 							<div className="hnt-txt-sm">
 								<i className="icon-car"></i>
-								於M3門統一離開機場
+								{leg.arr.ArrTransportation}
+								{/*於M3門統一離開機場*/}
 							</div>
 						</div>
 					</div>
 				</div>
-
 				
-				{/*
-				 * LEG [bottom]
-				 */}
+				{/* [LEG [bottom]] */}
 				<div className="leg-box leg-seat">
-					<Seats format="0" seatsData={''}></Seats>
+					<Seats format="0" relationship="0" legNum={this.props.legNum} data={this.props.data} seatCallback={this.props.seatCallback}></Seats>
 				</div>
 
 			</div>

@@ -8,9 +8,10 @@ var preview, form;
 
 export default React.createClass({
 
+
 	getInitialState() {
 
-		preview = <PsgPrevBasic onRef={ref => (this.psDetail = ref)}></PsgPrevBasic>;
+		preview = <PsgPrevBasic passenger={this.props.passenger} onRef={ref => (this.psDetail = ref)}></PsgPrevBasic>;
 		form 	= <PsgFormBasic onRef={ref => (this.psDetail = ref)}></PsgFormBasic>
 
 		return {

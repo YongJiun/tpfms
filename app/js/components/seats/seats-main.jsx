@@ -1,27 +1,32 @@
 import React from 'react'
 import SeatsFormat0 from './seats-format-0'
 
+var seats;
+
 export default React.createClass({
 
-	getInitialState() {
-		var seat;
-
-		if(this.props.format == 0) seat = <SeatsFormat0></SeatsFormat0>;
-		return {content: seat };
+	childContextTypes: {
+		seatCallback: React.PropTypes.func,
 	},
-	componentWillMount() {},
- 	componentDidMount() {},
-	componentDidUpdate(prevProps, prevState) {},
-	componentWillUnmount() {},
+
+	getChildContext: function() {
+
+		return {
+			seatCallback: this.props.seatCallback
+		}
+	},
+
+	getInitialState() {
+		if(this.props.format == 0) seats = <SeatsFormat0></SeatsFormat0>;
+		return {content: seats };
+	},
 
 	render() {
 
 		return (
 			<div>
 				<div className="seats-wrap">
-					{
-						<SeatsFormat0></SeatsFormat0>
-					}
+					<SeatsFormat0 legNum={this.props.legNum} relationship={this.props.relationship} data={this.props.data}></SeatsFormat0>
 				</div>
 			</div>
 		)

@@ -1,22 +1,14 @@
 import React from 'react'
 import Seat from './seat'
 
-var seats = [],
-	seatsTotal = 9,
-	
-	seatFormat = [
-		{pos: {'left': '155px', 'top': '115px', }, }, 
-		{pos: {'left': '430px', 'top': '115px', }, }, 
-		{pos: {'left': '155px', 'top': '290px', }, }, 
-		{pos: {'left': '430px', 'top': '290px', }, }, 
-		{pos: {'left': '155px', 'top': '450px', }, }, 
-		{pos: {'left': '155px', 'top': '600px', }, }, 
-		{pos: {'left': '155px', 'top': '750px', }, }, 
-		{pos: {'left': '430px', 'top': '487px', }, }, 
-		{pos: {'left': '430px', 'top': '650px', }, }
-	];
+var seats = [], seatFormat = [{pos: {'left': '155px', 'top': '115px', }, }, {pos: {'left': '155px', 'top': '290px', }, }, {pos: {'left': '155px', 'top': '450px', }, }, {pos: {'left': '155px', 'top': '600px', }, }, {pos: {'left': '155px', 'top': '750px', }, }, {pos: {'left': '430px', 'top': '115px', }, }, {pos: {'left': '430px', 'top': '290px', }, }, {pos: {'left': '430px', 'top': '487px', }, }, {pos: {'left': '430px', 'top': '650px', }, } ];
 
 export default React.createClass({
+
+	getInitialState() {
+		seats = [];
+		return null
+	},
 
 	addCallback: function() {
 
@@ -24,23 +16,21 @@ export default React.createClass({
 
 	render() {
 
-		if(seats.length == 0) {
+		for(var i = 0; i < seatFormat.length; i++) {
+			
+			var personal = this.props.data.Seats[i];
 
-			for(var i = 0; i < seatsTotal; i++) {
-
-				seats[i] = (
-					<Seat key={'seats-format-'+i}
-						  num={i}
-						  pos={seatFormat[i].pos}
-						  personalInfo={''}
-						  addCallback={this.addCallback}>
-					</Seat>
-				)
-			}
+			seats[i] = (
+				<Seat key={'leg-'+this.props.legNum+'-seat-'+i}
+					  num={i}
+					  legNum={this.props.legNum}
+					  pos={seatFormat[i].pos}
+					  relationship={this.props.relationship}
+					  personal={personal}
+					  addCallback={this.addCallback}>
+				</Seat>
+			)
 		}
-
-
-
 
 		return (
 			<div>

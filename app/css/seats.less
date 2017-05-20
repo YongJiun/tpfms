@@ -7,21 +7,36 @@
 	position: absolute;
 	margin-left: -75px; margin-top: -75px;
 	width: 150px; height: 150px;
-	// border: 1px solid white;
-}
+	text-align: center;
+	
+	&.add, &.name {
+		&:before {
+			content: '';
+			.vertical-center();
+			width: 0px; height: 100%;
+		}
 
-.btn-seat-add {
-	margin: 43px auto;
-	width: 65px; height: 65px;
-	border-radius: 35px;
-	border: 2px dashed white;
-	background-repeat: no-repeat;
-	background-position: center center;
-	background-image: url(/assets/common/icon/plus-w.png);
-	background-size: 40% 40%;
-	background-color: @gray-2;
-}
+		>div {
+			.vertical-center();		
+		}
+	}
 
+	&.add > div {
+		.vertical-center();
+		width: 65px; height: 65px;
+		border-radius: 35px;
+		border: 2px dashed white;
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-image: url(/assets/common/icon/plus-w.png);
+		background-size: 40% 40%;
+		background-color: @gray-2;
+	}
+
+	&.name > div {
+		width: 99%;
+	}
+}
 .seat .p-portrait-block {
 	margin-right: 10px;
 	width: 44px; height: 44px;
@@ -50,7 +65,7 @@
 
 .seat .p-name {
 	width: 150px; 
-	max-height: 82px;
+	max-height: 86px;
 	padding: 10px;
 	font-size: 22px;
 	font-weight: 500;
@@ -70,7 +85,7 @@
 
 .seat .p-name.translucent {
 	margin-top: 30px;
-	opacity: 0.5;
+	opacity: 0.9;
 }
 
 
